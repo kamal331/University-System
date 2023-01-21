@@ -1,5 +1,6 @@
 #ifndef __PROBLEM_H_
 #define __PROBLEM_H_
+
 class Problem
 {
 private:

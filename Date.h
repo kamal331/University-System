@@ -1,3 +1,6 @@
+#ifndef __DATE_H_
+#define __DATE_H_
+
 class Date
 {
     /// @brief
@@ -71,3 +74,5 @@ void Date::printDate()
 {
     cout << this->year << "/" << this->month << "/" << this->day << endl;
 }
+
+#endif

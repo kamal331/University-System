@@ -1,3 +1,6 @@
+#ifndef __EXAM_H_
+#define __EXAM_H_
+
 class Exam
 {
 private:
@@ -85,3 +88,5 @@ Exam::~Exam()
 {
     delete[] problems;
 }
+
+#endif
