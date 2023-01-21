@@ -1,5 +1,11 @@
 #include <iostream>
-#include <string>
+// #include <string>
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <argon2.h>
+#include <time.h>
+#include <random>
 
 using namespace std;
 
@@ -8,6 +14,7 @@ using namespace std;
 #include "Exam.h"
 #include "Course.h"
 #include "Term.h"
+#include "Argon2Hash.h"
 
 int main()
 {
@@ -47,4 +54,10 @@ int main()
 
     // Term t1("Fall", 2020, Date(1, 1, 2020), Date(1, 1, 2021), Date(1, 1, 2021), courses, 2);
     // t1.printTerm();
+
+    // // ================= Test hash =================
+    // uint8_t *salt = randomString(32);
+    // string hash = getArgon2Hash("1234", salt);
+
+    // cout << verifyArgon2Hash("1234", hash, salt) << endl;
 }
