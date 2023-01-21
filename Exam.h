@@ -20,7 +20,7 @@ public:
     void setProblems(Problem *problems);
     void setproblemNums(int problemNums);
     void printExam();
-    ~Exam();
+    // ~Exam();
 };
 
 Exam::Exam(string subject, Problem *problems, int problemNums)
@@ -84,9 +84,9 @@ void Exam::printExam()
     }
 }
 
-Exam::~Exam()
-{
-    delete[] problems;
-}
+// Exam::~Exam()
+// {
+//     delete[] problems;
+// }
 
 #endif

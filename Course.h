@@ -41,7 +41,7 @@ public:
     void setExams(Exam *exams);
     void setExamNums(int examNums);
     void printCourse();
-    ~Course();
+    // ~Course();
 };
 
 Course::Course(string courseName, int courseCode,
@@ -184,9 +184,9 @@ void Course::printCourse()
     }
 }
 
-Course::~Course()
-{
-    delete[] this->exams;
-}
+// Course::~Course()
+// {
+//     delete[] this->exams;
+// }
 
 #endif

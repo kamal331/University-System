@@ -7,10 +7,10 @@ using namespace std;
 #include "Problem.h"
 #include "Exam.h"
 #include "Course.h"
+#include "Term.h"
 
 int main()
 {
-
     // // ================== Exam test ==================
     // Problem p1("Math", "Multiple Choice", "What is 1 + 1?", "2", "1 + 1 = 2");
     // Problem p2("Math", "Multiple Choice", "What is 2 + 2?", "4", "2 + 2 = 4");
@@ -38,6 +38,13 @@ int main()
     // exams[0] = e1;
     // exams[1] = e2;
     // Course c1("Math", 101, "Math Syllabus", Date(1, 1, 2020), Date(1, 1, 2021), Date(1, 1, 2020), Date(1, 1, 2021), exams, 2);
-    // cout << "========== Exam ===========" << endl;
-    // c1.printCourse();
+    // Course c2("Physics", 101, "Physics Syllabus", Date(1, 1, 2020), Date(1, 1, 2021), Date(1, 1, 2020), Date(1, 1, 2021), exams, 2);
+
+    // // ================== Term test ==================
+    // Course *courses = new Course[2];
+    // courses[0] = c1;
+    // courses[1] = c2;
+
+    // Term t1("Fall", 2020, Date(1, 1, 2020), Date(1, 1, 2021), Date(1, 1, 2021), courses, 2);
+    // t1.printTerm();
 }
