@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <argon2.h>
 #include <time.h>
 #include <random>
 
@@ -15,9 +14,11 @@ using namespace std;
 #include "Course.h"
 #include "Term.h"
 #include "Argon2Hash.h"
+#include "Student.h"
 
 int main()
 {
+
     // // ================== Exam test ==================
     // Problem p1("Math", "Multiple Choice", "What is 1 + 1?", "2", "1 + 1 = 2");
     // Problem p2("Math", "Multiple Choice", "What is 2 + 2?", "4", "2 + 2 = 4");
@@ -55,9 +56,14 @@ int main()
     // Term t1("Fall", 2020, Date(1, 1, 2020), Date(1, 1, 2021), Date(1, 1, 2021), courses, 2);
     // t1.printTerm();
 
-    // // ================= Test hash =================
+    // // ================== Student test ==================
     // uint8_t *salt = randomString(32);
-    // string hash = getArgon2Hash("1234", salt);
+    // Student s1("John", getArgon2Hash("1234", salt), salt, 1, nullptr, 0);
+    // s1.printStudent();
 
-    // cout << verifyArgon2Hash("1234", hash, salt) << endl;
+    // cout << "Verify password: " << endl;
+    // cout << verifyArgon2Hash("1234", s1.getPassword(), s1.getSalt()) << endl;
+
+    // cout << "Check saved password: " << endl;
+    // cout << s1.getPassword() << endl;
 }

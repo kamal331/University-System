@@ -1,5 +1,8 @@
 #ifndef __ARGON2HASH_H_
 #define __ARGON2HASH_H_
+using namespace std;
+
+#include <argon2.h>
 
 #define HASHLEN 32
 #define SALTLEN 16
