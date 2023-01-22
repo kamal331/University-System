@@ -1,12 +1,8 @@
 #ifndef __STUDENT_H_
 #define __STUDENT_H_
-class Student
+class Student : public Person
 {
 private:
-    string name;
-    string password;
-    uint8_t *salt;
-    int id;
     Course *courses;
     int courseNums;
 
@@ -14,63 +10,28 @@ public:
     Student(string name, string password, uint8_t *salt,
             int id, Course *courses, int courseNums);
     Student();
-
-    string getName();
-    string getPassword();
-    uint8_t *getSalt();
-
-    int getId();
     Course *getCourses();
     int getCourseNums();
 
-    void setName(string name);
-    void setPassword(string password);
-    void setSalt(uint8_t *salt);
-    void setId(int id);
     void setCourses(Course *courses);
     void setCourseNums(int courseNums);
-    void printStudent();
+
+    void print();
     ~Student();
 };
 
 Student::Student(string name, string password, uint8_t *salt,
-                 int id, Course *courses, int courseNums)
+                 int id, Course *courses,
+                 int courseNums) : Person(name, password, salt, id)
 {
-    this->name = name;
-    this->password = password;
-    this->salt = salt;
-    this->id = id;
     this->courses = courses;
     this->courseNums = courseNums;
 }
 
-Student::Student()
+Student::Student() : Person()
 {
-    this->name = "";
-    this->password = "";
-    this->id = 0;
     this->courses = nullptr;
     this->courseNums = 0;
-}
-
-string Student::getName()
-{
-    return this->name;
-}
-
-string Student::getPassword()
-{
-    return this->password;
-}
-
-uint8_t *Student::getSalt()
-{
-    return this->salt;
-}
-
-int Student::getId()
-{
-    return this->id;
 }
 
 Course *Student::getCourses()
@@ -83,26 +44,6 @@ int Student::getCourseNums()
     return this->courseNums;
 }
 
-void Student::setName(string name)
-{
-    this->name = name;
-}
-
-void Student::setPassword(string password)
-{
-    this->password = password;
-}
-
-void Student::setSalt(uint8_t *salt)
-{
-    this->salt = salt;
-}
-
-void Student::setId(int id)
-{
-    this->id = id;
-}
-
 void Student::setCourses(Course *courses)
 {
     this->courses = courses;
@@ -113,20 +54,19 @@ void Student::setCourseNums(int courseNums)
     this->courseNums = courseNums;
 }
 
-void Student::printStudent()
+void Student::print()
 {
-    cout << "Name: " << this->name << endl;
-    cout << "Password: " << this->password << endl;
-    cout << "ID: " << this->id << endl;
-    cout << "Courses: " << endl;
-    for (int i = 0; i < this->courseNums; i++)
-        this->courses[i].printCourse();
+    cout << "Name: " << this->getName() << endl;
+    cout << "ID: " << this->getId() << endl;
+    cout << "Course Num: " << this->getCourseNums() << endl;
+    for (int i = 0; i < this->getCourseNums(); i++)
+        cout << "Course " << i + 1 << ": "
+             << this->getCourses()[i].getCourseName() << endl;
 }
 
 Student::~Student()
 {
     delete[] this->courses;
-    delete[] this->salt;
 }
 
 #endif

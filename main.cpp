@@ -14,11 +14,11 @@ using namespace std;
 #include "Course.h"
 #include "Term.h"
 #include "Argon2Hash.h"
+#include "Person.h"
 #include "Student.h"
 
 int main()
 {
-
     // // ================== Exam test ==================
     // Problem p1("Math", "Multiple Choice", "What is 1 + 1?", "2", "1 + 1 = 2");
     // Problem p2("Math", "Multiple Choice", "What is 2 + 2?", "4", "2 + 2 = 4");
@@ -58,11 +58,11 @@ int main()
 
     // // ================== Student test ==================
     // uint8_t *salt = randomString(32);
-    // Student s1("John", getArgon2Hash("1234", salt), salt, 1, nullptr, 0);
-    // s1.printStudent();
+    // Student s1("John", getArgon2Hash("qF@sHYu$iO-sVx!w&wE", salt), salt, 1, nullptr, 0);
+    // s1.print();
 
     // cout << "Verify password: " << endl;
-    // cout << verifyArgon2Hash("1234", s1.getPassword(), s1.getSalt()) << endl;
+    // cout << verifyArgon2Hash("qF@sHYu$iO-sVx!w&wE", s1.getPassword(), s1.getSalt()) << endl;
 
     // cout << "Check saved password: " << endl;
     // cout << s1.getPassword() << endl;
