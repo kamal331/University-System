@@ -16,6 +16,7 @@ using namespace std;
 #include "Argon2Hash.h"
 #include "Person.h"
 #include "Student.h"
+#include "Professor.h"
 
 int main()
 {
@@ -66,4 +67,16 @@ int main()
 
     // cout << "Check saved password: " << endl;
     // cout << s1.getPassword() << endl;
+    // ===================== Professor test =====================
+    // uint8_t *salt = randomString(32);
+    // Professor p1("Maryam Mirzakhani", getArgon2Hash("qF@sHYu$iO-sVx!w&wE", salt), salt, 1, nullptr, 0);
+    // p1.print();
+
+    // cout << "Verify password: " << endl;
+    // cout << verifyArgon2Hash("qF@sHYu$iO-sVx!w&wE", p1.getPassword(), p1.getSalt()) << endl;
+
+    // cout << "Check saved password: " << endl;
+    // cout << p1.getPassword() << endl;
+
+    return 0;
 }
