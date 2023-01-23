@@ -20,6 +20,8 @@ public:
     void setProblems(Problem *problems);
     void setproblemNums(int problemNums);
     void printExam();
+
+    Exam *operator=(Exam *exam);
     // ~Exam();
 };
 
@@ -82,6 +84,14 @@ void Exam::printExam()
         cout << "===== ✳  Problem " << i + 1 << "✳  =====" << endl;
         problems[i].printProblem();
     }
+}
+
+Exam *Exam::operator=(Exam *exam)
+{
+    this->subject = exam->subject;
+    this->problems = exam->problems;
+    this->problemNums = exam->problemNums;
+    return this;
 }
 
 // Exam::~Exam()

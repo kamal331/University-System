@@ -33,7 +33,9 @@ public:
     void setCourses(Course *courses);
     void setCourseNums(int courseNums);
     void printTerm();
-    ~Term();
+
+    Term *operator=(Term *term);
+    // ~Term();
 };
 
 Term::Term(string termName, int termCode, Date termStartDate, Date termEndDate, Date gradesDeadline, Course *courses, int courseNums)
@@ -144,9 +146,21 @@ void Term::printTerm()
     }
 }
 
-Term::~Term()
+Term *Term::operator=(Term *term)
 {
-    delete[] this->courses;
+    this->termName = term->termName;
+    this->termCode = term->termCode;
+    this->termStartDate = term->termStartDate;
+    this->termEndDate = term->termEndDate;
+    this->gradesDeadline = term->gradesDeadline;
+    this->courses = term->courses;
+    this->courseNums = term->courseNums;
+    return this;
 }
+
+// Term::~Term()
+// {
+//     delete[] this->courses;
+// }
 
 #endif

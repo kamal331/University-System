@@ -17,7 +17,9 @@ public:
     void setCourseNums(int courseNums);
 
     void print();
-    ~Student();
+
+    Student *operator=(Student *student);
+    // ~Student();
 };
 
 Student::Student(string name, string password, uint8_t *salt,
@@ -64,9 +66,20 @@ void Student::print()
              << this->getCourses()[i].getCourseName() << endl;
 }
 
-Student::~Student()
+Student *Student::operator=(Student *student)
 {
-    delete[] this->courses;
+    this->setName(student->getName());
+    this->setPassword(student->getPassword());
+    this->setSalt(student->getSalt());
+    this->setId(student->getId());
+    this->setCourses(student->getCourses());
+    this->setCourseNums(student->getCourseNums());
+    return this;
 }
+
+// Student::~Student()
+// {
+//     delete[] this->courses;
+// }
 
 #endif

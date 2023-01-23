@@ -18,7 +18,9 @@ public:
     void setCourseNums(int courseNums);
 
     void print();
-    ~Professor();
+
+    Professor *operator=(Professor *professor);
+    // ~Professor();
 };
 
 Professor::Professor(string name, string password, uint8_t *salt,
@@ -64,9 +66,20 @@ void Professor::print()
         cout << "Course " << i << " Name: " << this->getCourses()[i].getCourseName() << endl;
 }
 
-Professor::~Professor()
+Professor *Professor::operator=(Professor *professor)
 {
-    delete[] this->courses;
+    this->setName(professor->getName());
+    this->setPassword(professor->getPassword());
+    this->setSalt(professor->getSalt());
+    this->setId(professor->getId());
+    this->setCourses(professor->getCourses());
+    this->setCourseNums(professor->getCourseNums());
+    return this;
 }
+
+// Professor::~Professor()
+// {
+//     delete[] this->courses;
+// }
 
 #endif // __PROFESSOR_H_

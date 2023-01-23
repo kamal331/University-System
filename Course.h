@@ -13,12 +13,13 @@ private:
     Date finalExamDate;
     Exam *exams;
     int examNums;
+    Professor *professor;
 
 public:
     Course(string courseName, int courseCode,
            string courseSyllabus, Date courseStartDate,
            Date courseEndDate, Date midTermDate,
-           Date finalExamDate, Exam *exams, int examNums);
+           Date finalExamDate, Exam *exams, int examNums, Professor *professor);
 
     Course(); // default constructor
     string getCourseName();
@@ -30,6 +31,7 @@ public:
     Date getFinalExamDate();
     Exam *getExams();
     int getExamNums();
+    Professor *getProfessor();
 
     void setCourseName(string courseName);
     void setCourseCode(int courseCode);
@@ -40,14 +42,19 @@ public:
     void setFinalExamDate(Date finalExamDate);
     void setExams(Exam *exams);
     void setExamNums(int examNums);
+    void setProfessor(Professor *professor);
+
     void printCourse();
+
+    // operator overloading for = gets a course* and assigns it to another course*:
+    Course *operator=(Course *course);
     // ~Course();
 };
 
 Course::Course(string courseName, int courseCode,
                string courseSyllabus, Date courseStartDate,
                Date courseEndDate, Date midTermDate,
-               Date finalExamDate, Exam *exams, int examNums)
+               Date finalExamDate, Exam *exams, int examNums, Professor *proffesor)
 {
     this->courseName = courseName;
     this->courseCode = courseCode;
@@ -58,6 +65,7 @@ Course::Course(string courseName, int courseCode,
     this->finalExamDate = finalExamDate;
     this->exams = exams;
     this->examNums = examNums;
+    this->professor = professor;
 }
 
 Course::Course()
@@ -71,6 +79,7 @@ Course::Course()
     this->finalExamDate = Date();
     this->exams = nullptr;
     this->examNums = 0;
+    this->professor = nullptr;
 }
 
 string Course::getCourseName()
@@ -118,6 +127,11 @@ int Course::getExamNums()
     return this->examNums;
 }
 
+Professor *Course::getProfessor()
+{
+    return this->professor;
+}
+
 void Course::setCourseName(string courseName)
 {
     this->courseName = courseName;
@@ -163,10 +177,17 @@ void Course::setExamNums(int examNums)
     this->examNums = examNums;
 }
 
+void Course::setProfessor(Professor *professor)
+{
+    this->professor = professor;
+}
+
 void Course::printCourse()
 {
     cout << "Course Name: " << this->courseName << endl;
     cout << "Course Code: " << this->courseCode << endl;
+    /// @bug @ERROR: invalid use of incomplete type 'class Professor'
+    // cout << "Course Proffesor: " << this->professor->getName() << endl;
     cout << "Course Syllabus: " << this->courseSyllabus << endl;
     cout << "Course Start Date: " << this->courseStartDate.getDay() << "/" << this->courseStartDate.getMonth() << "/" << this->courseStartDate.getYear() << endl;
     cout << "Course End Date: " << this->courseEndDate.getDay() << "/" << this->courseEndDate.getMonth() << "/" << this->courseEndDate.getYear() << endl;
@@ -182,6 +203,21 @@ void Course::printCourse()
                  << endl;
         this->exams[i].printExam();
     }
+}
+
+Course *Course::operator=(Course *course)
+{
+    this->courseName = course->getCourseName();
+    this->courseCode = course->getCourseCode();
+    this->courseSyllabus = course->getCourseSyllabus();
+    this->courseStartDate = course->getCourseStartDate();
+    this->courseEndDate = course->getCourseEndDate();
+    this->midTermDate = course->getMidTermDate();
+    this->finalExamDate = course->getFinalExamDate();
+    this->exams = course->getExams();
+    this->examNums = course->getExamNums();
+    this->professor = course->getProfessor();
+    return this;
 }
 
 // Course::~Course()
