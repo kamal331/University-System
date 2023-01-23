@@ -3,17 +3,22 @@
 
 // ================= Macros =================
 #define CLEAR_SCREEN() cout << "\033[1;1H\033[2J"
+#define BACK_TO_LAST_PAGE()                                  \
+    cout << "Press any key to back to last page..." << endl; \
+    string temp;                                             \
+    cin >> temp;
+
+#define EMPTY_BUFFER() std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n')
+
 #define MAX_STUDENT_NUM 10
 #define MAX_PROFESSOR_NUM 10
 #define MAX_ADMIN_NUM 10
+#define MAX_COURSE_NUM 10
+#define MAX_TERM_NUM 10
+
+#define MAX_EXAM_NUM 10
 
 // ================== Other Functions ==================
-void _backToLastPage()
-{
-    cout << "Press any key to go back to the last page..." << endl;
-    string temp;
-    cin >> temp;
-}
 
 string _getPaasword()
 {
@@ -29,7 +34,7 @@ string _getPaasword()
             return password;
         else
         {
-            cout << "Press any key to try again..." << endl;
+            cout << "❌  Press any key to try again..." << endl;
             cin >> temp;
         }
     }

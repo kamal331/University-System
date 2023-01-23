@@ -23,11 +23,15 @@ void mainMenu();
 bool adminLogin();
 void adminMenu();
 void addStudent();
+void addProfessor();
+void addCourse();
 int _getNewStudentId();
+int _getNewProfessorId();
+int _getNewCourseCode();
+int _getNewTermCode();
 
 bool _isPassStrong(string password);
 string _getPaasword();
-void _backToLastPage();
 
 #include "Date.h"
 #include "Problem.h"
@@ -46,10 +50,14 @@ void _backToLastPage();
 int gStudentId = 0;
 int gProfessorId = 0;
 int gAdminId = 0;
+int gCourseCode = 0;
+int gTermCode = 0;
 
 Student *pStudents = new Student[MAX_STUDENT_NUM];
 Admin *pAdmins = new Admin[MAX_ADMIN_NUM];
 Professor *pProfessors = new Professor[MAX_PROFESSOR_NUM];
+Course *pCourses = new Course[MAX_COURSE_NUM];
+Term *pTerms = new Term[MAX_TERM_NUM];
 
 // ================= Main =================
 
@@ -148,6 +156,7 @@ int main()
     pAdmins[gAdminId++] = admin;
 
     mainMenu();
+
     return 0;
 }
 
@@ -224,18 +233,21 @@ void adminMenu()
 
         if (choice == "1")
         {
-            cout << "You chose to add a student" << endl;
             addStudent();
             pStudents[gStudentId - 1].print();
-            _backToLastPage();
+            BACK_TO_LAST_PAGE();
         }
         else if (choice == "2")
         {
-            cout << "You chose to add a professor" << endl;
+            addProfessor();
+            pProfessors[gProfessorId - 1].print();
+            BACK_TO_LAST_PAGE();
         }
         else if (choice == "3")
         {
-            cout << "You chose to add a course" << endl;
+            addCourse();
+            pCourses[gCourseCode - 1].print();
+            BACK_TO_LAST_PAGE();
         }
         else if (choice == "4")
         {
@@ -306,6 +318,81 @@ void addStudent()
     cout << "Student added successfully ✅" << endl;
 }
 
+void addProfessor()
+{
+    CLEAR_SCREEN();
+    string name;
+    string password;
+    uint8_t *salt = new uint8_t[32];
+
+    salt = randomString(32);
+    int id = _getNewProfessorId();
+
+    cout << "Enter professor's name: ";
+    cin >> name;
+
+    _getPaasword();
+
+    Professor *prof = new Professor(name, getArgon2Hash(password, salt), salt, id, nullptr, 0);
+    pProfessors[gProfessorId - 1] = prof;
+    cout << "Professor added successfully ✅" << endl;
+}
+
+void addCourse()
+{
+    CLEAR_SCREEN();
+    string name;
+
+    cout << "Enter course's name: ";
+    cin >> name;
+
+    int code = _getNewCourseCode();
+
+    char *pSyllabus = new char[MAX_SYLLABUS_SIZE];
+
+    cout << "Enter course's syllabus: ";
+    char c = '=';
+    int i = 0;
+    EMPTY_BUFFER();
+
+    c = getchar();
+    while ((c != '\n') && (c != EOF) && (i < MAX_SYLLABUS_SIZE))
+    {
+        pSyllabus[i] = c;
+        ++i;
+        c = getchar();
+    }
+    pSyllabus[i] = '\0';
+
+    Date *pStartDate = new Date();
+    Date *pEndDate = new Date();
+    Date *pMidTermDate = new Date();
+    Date *pFinalExamDate = new Date();
+
+    cout << "Enter course's start date: ";
+    cin >> *pStartDate;
+
+    cout << "Enter course's end date: ";
+    cin >> *pEndDate;
+
+    cout << "Enter course's mid term date: ";
+    cin >> *pMidTermDate;
+
+    cout << "Enter course's final exam date: ";
+    cin >> *pFinalExamDate;
+
+    Exam *pExams = new Exam[MAX_EXAM_NUM];
+    int examNum = 0;
+
+    Professor *pProfessors = new Professor;
+
+    Course *course = new Course(name, code, pSyllabus, pStartDate, pEndDate,
+                                pMidTermDate, pFinalExamDate, pExams, examNum, pProfessors);
+
+    pCourses[gCourseCode - 1] = course;
+    cout << "Course added successfully ✅" << endl;
+}
+
 int _getNewStudentId()
 {
     return gStudentId++;
@@ -319,4 +406,14 @@ int _getNewProfessorId()
 int _getNewAdminId()
 {
     return gAdminId++;
+}
+
+int _getNewCourseCode()
+{
+    return gCourseCode++;
+}
+
+int _getNewTermCode()
+{
+    return gTermCode++;
 }

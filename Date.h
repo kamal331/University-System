@@ -24,6 +24,11 @@ public:
     void setYear(int year);
 
     void printDate();
+
+    Date *operator=(Date *date);
+    // overloading operator for input and output
+    friend ostream &operator<<(ostream &output, const Date &date);
+    friend istream &operator>>(istream &input, Date &date);
 };
 
 Date::Date(int year, int month, int day)
@@ -73,6 +78,26 @@ void Date::setDay(int day)
 void Date::printDate()
 {
     cout << this->year << "/" << this->month << "/" << this->day << endl;
+}
+
+Date *Date::operator=(Date *date)
+{
+    this->year = date->year;
+    this->month = date->month;
+    this->day = date->day;
+    return this;
+}
+
+ostream &operator<<(ostream &output, const Date &date)
+{
+    output << date.year << "/" << date.month << "/" << date.day;
+    return output;
+}
+
+istream &operator>>(istream &input, Date &date)
+{
+    input >> date.year >> date.month >> date.day;
+    return input;
 }
 
 #endif

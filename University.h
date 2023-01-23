@@ -178,7 +178,7 @@ void University::print()
     for (int i = 0; i < this->mCourseNums; i++)
     {
         cout << "Course " << i << ": " << endl;
-        this->mPCourses[i].printCourse();
+        this->mPCourses[i].print();
     }
 
     cout << "Students: " << endl;
