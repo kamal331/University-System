@@ -28,6 +28,7 @@ class Professor;
 #include "Student.h"
 #include "Professor.h"
 #include "University.h"
+#include "Admin.h"
 
 int main()
 {
