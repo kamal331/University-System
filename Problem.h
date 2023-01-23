@@ -4,29 +4,25 @@
 class Problem
 {
 private:
-    string subject;
-    string problemType; // it cann be "multiple choice" or "fill in the blank" or "true or false" or "short answer"
-    string problemText;
-    string problemAnswer;
-    string problemHint;
+    string mSubject;
+    string mProblemType; // it cann be "multiple choice" or "fill in the blank" or "true or false" or "short answer"
+    string mProblemText;
+    string mProblemAnswer;
 
 public:
     Problem(string subject, string problemType,
-            string problemText, string problemAnswer, string problemHint);
+            string problemText, string problemAnswer);
     Problem(); // default constructor
     string getSubject();
     string getProblemType();
     string getProblemText();
     string getProblemAnswer();
-    string getProblemHint();
     void setSubject(string subject);
     void setProblemType(string problemType);
     void setProblemText(string problemText);
     void setProblemAnswer(string problemAnswer);
-    void setProblemHint(string problemHint);
 
     void printProblem();
-    void printProblemHint();
     void printProblemAnswer();
 
     bool isTrueFalseCorrect(string answer);
@@ -38,126 +34,108 @@ public:
 };
 
 Problem::Problem(string subject, string problemType,
-                 string problemText, string problemAnswer, string problemHint)
+                 string problemText, string problemAnswer)
 {
-    this->subject = subject;
-    this->problemType = problemType;
-    this->problemText = problemText;
-    this->problemAnswer = problemAnswer;
-    this->problemHint = problemHint;
+    this->mSubject = subject;
+    this->mProblemType = problemType;
+    this->mProblemText = problemText;
+    this->mProblemAnswer = problemAnswer;
 }
 
 Problem::Problem()
 {
-    this->subject = "";
-    this->problemType = "";
-    this->problemText = "";
-    this->problemAnswer = "";
-    this->problemHint = "";
+    this->mSubject = "";
+    this->mProblemType = "";
+    this->mProblemText = "";
+    this->mProblemAnswer = "";
 }
 
 string Problem::getSubject()
 {
-    return this->subject;
+    return this->mSubject;
 }
 
 string Problem::getProblemType()
 {
-    return this->problemType;
+    return this->mProblemType;
 }
 
 string Problem::getProblemText()
 {
-    return this->problemText;
+    return this->mProblemText;
 }
 
 string Problem::getProblemAnswer()
 {
-    return this->problemAnswer;
-}
-
-string Problem::getProblemHint()
-{
-    return this->problemHint;
+    return this->mProblemAnswer;
 }
 
 void Problem::setSubject(string subject)
 {
-    this->subject = subject;
+    this->mSubject = subject;
 }
 
 void Problem::setProblemType(string problemType)
 {
-    this->problemType = problemType;
+    this->mProblemType = problemType;
 }
 
 void Problem::setProblemText(string problemText)
 {
-    this->problemText = problemText;
+    this->mProblemText = problemText;
 }
 
 void Problem::setProblemAnswer(string problemAnswer)
 {
-    this->problemAnswer = problemAnswer;
-}
-
-void Problem::setProblemHint(string problemHint)
-{
-    this->problemHint = problemHint;
+    this->mProblemAnswer = problemAnswer;
 }
 
 void Problem::printProblem()
 {
-    cout << "▶ Subject: " << this->subject << endl;
-    cout << "▶ Problem Type: " << this->problemType << endl;
+    cout << "▶ Subject: " << this->mSubject << endl;
+    cout << "▶ Problem Type: " << this->mProblemType << endl;
     cout << "▶ Problem Text:\n"
-         << this->problemText << endl;
-}
-
-void Problem::printProblemHint()
-{
-    cout << "Problem Hint: 💡 \n"
-         << this->problemHint << endl;
+         << this->mProblemText << endl;
 }
 
 void Problem::printProblemAnswer()
 {
     cout << "Problem Answer:\n"
-         << this->problemAnswer << endl;
+         << this->mProblemAnswer << endl;
 }
 
 bool Problem::isTrueFalseCorrect(string answer)
 {
-    if (this->problemType == "True or False")
+    if (this->mProblemType == "True or False")
     {
-        return this->problemAnswer == answer;
+        return this->mProblemAnswer == answer;
     }
     return false;
 }
 
 bool Problem::isMultipleChoiceCorrect(string answer)
 {
-    if (this->problemType == "Multiple Choice")
+    if (this->mProblemType == "Multiple Choice")
     {
-        return this->problemAnswer == answer;
+        return this->mProblemAnswer == answer;
     }
     return false;
 }
 
 bool Problem::isFillInTheBlankCorrect(string answer)
 {
-    if (this->problemType == "Fill in the Blank")
+    if (this->mProblemType == "Fill in the Blank")
     {
-        return this->problemAnswer == answer;
+        return this->mProblemAnswer == answer;
     }
     return false;
 }
 
 bool Problem::isShortAnswerCorrect(string answer)
 {
-    if (this->problemType == "Short Answer")
+    if (this->mProblemType == "Short Answer")
     {
-        return this->problemAnswer == answer;
+        return this->mProblemAnswer == answer;
     }
     return false;
 }

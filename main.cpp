@@ -18,6 +18,17 @@ class Person;
 class Student;
 class Professor;
 
+// ================= Functions =================
+void mainMenu();
+bool adminLogin();
+void adminMenu();
+void addStudent();
+int _getNewStudentId();
+
+bool _isPassStrong(string password);
+string _getPaasword();
+void _backToLastPage();
+
 #include "Date.h"
 #include "Problem.h"
 #include "Exam.h"
@@ -29,6 +40,18 @@ class Professor;
 #include "Professor.h"
 #include "University.h"
 #include "Admin.h"
+#include "OtherComponents.h"
+
+// ================= Global Variables =================
+int gStudentId = 0;
+int gProfessorId = 0;
+int gAdminId = 0;
+
+Student *pStudents = new Student[MAX_STUDENT_NUM];
+Admin *pAdmins = new Admin[MAX_ADMIN_NUM];
+Professor *pProfessors = new Professor[MAX_PROFESSOR_NUM];
+
+// ================= Main =================
 
 int main()
 {
@@ -119,5 +142,181 @@ int main()
     // u1.setTermNums(1);
     // u1.print();
 
+    uint8_t *salt = randomString(32);
+
+    Admin *admin = new Admin("Natasha", getArgon2Hash("1234", salt), salt, 0);
+    pAdmins[gAdminId++] = admin;
+
+    mainMenu();
     return 0;
+}
+
+void mainMenu()
+{
+    cout << "=========== 🏢  Welcome to the University 🏢  ===========" << endl;
+    string choices[5] = {"1. Login as a student 🧑‍🎓",
+                         "2. Login as a professor 🧑‍🏫",
+                         "3. Login as an admin 🧑‍💻",
+                         "4. Exit 🚪"};
+    string choice;
+    while (true)
+    {
+        CLEAR_SCREEN();
+        cout << "What would you like to do?" << endl;
+        for (string choice : choices)
+            cout << choice << endl;
+        cin >> choice;
+
+        if (choice == "1")
+        {
+            cout << "You chose to login as a student" << endl;
+            break;
+        }
+        else if (choice == "2")
+        {
+            cout << "You chose to login as a professor" << endl;
+            break;
+        }
+        else if (choice == "3")
+        {
+            adminMenu();
+        }
+        else if (choice == "4")
+        {
+            cout << "You chose to exit" << endl;
+            exit(0);
+        }
+        else
+        {
+            cout << "Invalid choice" << endl;
+        }
+    }
+}
+
+// ================== Admin Menu ==================
+
+void adminMenu()
+{
+    while (!adminLogin())
+    {
+        cout << "Try again? (y/n)" << endl;
+        string choice;
+        cin >> choice;
+        if (choice == "n")
+            return;
+    }
+    cout << "=========== 🧑‍💻  Welcome to the Admin Menu 🧑‍💻  ===========" << endl;
+    string choices[6] = {"1. Add a student 🧑‍🎓",
+                         "2. Add a professor 🧑‍🏫",
+                         "3. Add a course 📚",
+                         "4. Add a term 📅",
+                         "5. Back to Last Page 🔙",
+                         "6. Exit 🚪"};
+    string choice;
+
+    while (true)
+    {
+        CLEAR_SCREEN();
+        cout << "What would you like to do?" << endl;
+        for (string choice : choices) // Print Menu
+            cout << choice << endl;
+        cin >> choice;
+
+        if (choice == "1")
+        {
+            cout << "You chose to add a student" << endl;
+            addStudent();
+            pStudents[gStudentId - 1].print();
+            _backToLastPage();
+        }
+        else if (choice == "2")
+        {
+            cout << "You chose to add a professor" << endl;
+        }
+        else if (choice == "3")
+        {
+            cout << "You chose to add a course" << endl;
+        }
+        else if (choice == "4")
+        {
+            cout << "You chose to add a term" << endl;
+        }
+        else if (choice == "5")
+        {
+            break;
+        }
+        else if (choice == "6")
+        {
+            cout << "You chose to exit" << endl;
+            exit(0);
+        }
+
+        else
+        {
+            cout << "Invalid choice" << endl;
+        }
+    }
+}
+
+bool adminLogin()
+{
+    CLEAR_SCREEN();
+    int id;
+    string password;
+
+    cout << "Enter your ID: ";
+    cin >> id;
+    cout << "Enter your password: ";
+    cin >> password;
+
+    for (int i = 0; i < gAdminId; i++)
+    {
+        if (pAdmins[i].getId() == id)
+        {
+            if (verifyArgon2Hash(password, pAdmins[i].getPassword(), pAdmins[i].getSalt()))
+            {
+                cout << "Login successful ✅" << endl;
+                return true;
+            }
+            else
+                cout << "Wrong password ❌" << endl;
+        }
+    }
+    cout << "Login Failed!" << endl;
+    return false;
+}
+
+void addStudent()
+{
+    CLEAR_SCREEN();
+    string name;
+    string password;
+    uint8_t *salt = new uint8_t[32];
+
+    salt = randomString(32);
+    int id = _getNewStudentId();
+
+    cout << "Enter student's name: ";
+    cin >> name;
+
+    _getPaasword();
+
+    Student *s = new Student(name, getArgon2Hash(password, salt), salt, id, nullptr, 0);
+    pStudents[gStudentId - 1] = s;
+    cout << "Student added successfully ✅" << endl;
+}
+
+int _getNewStudentId()
+{
+    return gStudentId++;
+}
+
+int _getNewProfessorId()
+{
+    return gProfessorId++;
+}
+
+int _getNewAdminId()
+{
+    return gAdminId++;
 }

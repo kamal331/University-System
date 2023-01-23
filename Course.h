@@ -4,16 +4,16 @@
 class Course
 {
 private:
-    string courseName;
-    int courseCode;
-    string courseSyllabus;
-    Date courseStartDate;
-    Date courseEndDate;
-    Date midTermDate;
-    Date finalExamDate;
-    Exam *exams;
-    int examNums;
-    Professor *professor;
+    string mCourseName;
+    int mCourseCode;
+    string mCourseSyllabus;
+    Date mCourseStartDate;
+    Date mCourseEndDate;
+    Date mMidTermDate;
+    Date mFinalExamDate;
+    Exam *mPExams;
+    int mExamNums;
+    Professor *mPProfessor;
 
 public:
     Course(string courseName, int courseCode,
@@ -54,169 +54,169 @@ public:
 Course::Course(string courseName, int courseCode,
                string courseSyllabus, Date courseStartDate,
                Date courseEndDate, Date midTermDate,
-               Date finalExamDate, Exam *exams, int examNums, Professor *proffesor)
+               Date finalExamDate, Exam *exams, int examNums, Professor *professor)
 {
-    this->courseName = courseName;
-    this->courseCode = courseCode;
-    this->courseSyllabus = courseSyllabus;
-    this->courseStartDate = courseStartDate;
-    this->courseEndDate = courseEndDate;
-    this->midTermDate = midTermDate;
-    this->finalExamDate = finalExamDate;
-    this->exams = exams;
-    this->examNums = examNums;
-    this->professor = professor;
+    this->mCourseName = courseName;
+    this->mCourseCode = courseCode;
+    this->mCourseSyllabus = courseSyllabus;
+    this->mCourseStartDate = courseStartDate;
+    this->mCourseEndDate = courseEndDate;
+    this->mMidTermDate = midTermDate;
+    this->mFinalExamDate = finalExamDate;
+    this->mPExams = exams;
+    this->mExamNums = examNums;
+    this->mPProfessor = professor;
 }
 
 Course::Course()
 {
-    this->courseName = "";
-    this->courseCode = 0;
-    this->courseSyllabus = "";
-    this->courseStartDate = Date();
-    this->courseEndDate = Date();
-    this->midTermDate = Date();
-    this->finalExamDate = Date();
-    this->exams = nullptr;
-    this->examNums = 0;
-    this->professor = nullptr;
+    this->mCourseName = "";
+    this->mCourseCode = 0;
+    this->mCourseSyllabus = "";
+    this->mCourseStartDate = Date();
+    this->mCourseEndDate = Date();
+    this->mMidTermDate = Date();
+    this->mFinalExamDate = Date();
+    this->mPExams = nullptr;
+    this->mExamNums = 0;
+    this->mPProfessor = nullptr;
 }
 
 string Course::getCourseName()
 {
-    return this->courseName;
+    return this->mCourseName;
 }
 
 int Course::getCourseCode()
 {
-    return this->courseCode;
+    return this->mCourseCode;
 }
 
 string Course::getCourseSyllabus()
 {
-    return this->courseSyllabus;
+    return this->mCourseSyllabus;
 }
 
 Date Course::getCourseStartDate()
 {
-    return this->courseStartDate;
+    return this->mCourseStartDate;
 }
 
 Date Course::getCourseEndDate()
 {
-    return this->courseEndDate;
+    return this->mCourseEndDate;
 }
 
 Date Course::getMidTermDate()
 {
-    return this->midTermDate;
+    return this->mMidTermDate;
 }
 
 Date Course::getFinalExamDate()
 {
-    return this->finalExamDate;
+    return this->mFinalExamDate;
 }
 
 Exam *Course::getExams()
 {
-    return this->exams;
+    return this->mPExams;
 }
 
 int Course::getExamNums()
 {
-    return this->examNums;
+    return this->mExamNums;
 }
 
 Professor *Course::getProfessor()
 {
-    return this->professor;
+    return this->mPProfessor;
 }
 
 void Course::setCourseName(string courseName)
 {
-    this->courseName = courseName;
+    this->mCourseName = courseName;
 }
 
 void Course::setCourseCode(int courseCode)
 {
-    this->courseCode = courseCode;
+    this->mCourseCode = courseCode;
 }
 
 void Course::setCourseSyllabus(string courseSyllabus)
 {
-    this->courseSyllabus = courseSyllabus;
+    this->mCourseSyllabus = courseSyllabus;
 }
 
 void Course::setCourseStartDate(Date courseStartDate)
 {
-    this->courseStartDate = courseStartDate;
+    this->mCourseStartDate = courseStartDate;
 }
 
 void Course::setCourseEndDate(Date courseEndDate)
 {
-    this->courseEndDate = courseEndDate;
+    this->mCourseEndDate = courseEndDate;
 }
 
 void Course::setMidTermDate(Date midTermDate)
 {
-    this->midTermDate = midTermDate;
+    this->mMidTermDate = midTermDate;
 }
 
 void Course::setFinalExamDate(Date finalExamDate)
 {
-    this->finalExamDate = finalExamDate;
+    this->mFinalExamDate = finalExamDate;
 }
 
 void Course::setExams(Exam *exams)
 {
-    this->exams = exams;
+    this->mPExams = exams;
 }
 
 void Course::setExamNums(int examNums)
 {
-    this->examNums = examNums;
+    this->mExamNums = examNums;
 }
 
 void Course::setProfessor(Professor *professor)
 {
-    this->professor = professor;
+    this->mPProfessor = professor;
 }
 
 void Course::printCourse()
 {
-    cout << "Course Name: " << this->courseName << endl;
-    cout << "Course Code: " << this->courseCode << endl;
+    cout << "Course Name: " << this->mCourseName << endl;
+    cout << "Course Code: " << this->mCourseCode << endl;
     /// @bug @ERROR: invalid use of incomplete type 'class Professor'
     // cout << "Course Proffesor: " << this->professor->getName() << endl;
-    cout << "Course Syllabus: " << this->courseSyllabus << endl;
-    cout << "Course Start Date: " << this->courseStartDate.getDay() << "/" << this->courseStartDate.getMonth() << "/" << this->courseStartDate.getYear() << endl;
-    cout << "Course End Date: " << this->courseEndDate.getDay() << "/" << this->courseEndDate.getMonth() << "/" << this->courseEndDate.getYear() << endl;
-    cout << "Midterm Date: " << this->midTermDate.getDay() << "/" << this->midTermDate.getMonth() << "/" << this->midTermDate.getYear() << endl;
-    cout << "Final Exam Date: " << this->finalExamDate.getDay() << "/" << this->finalExamDate.getMonth() << "/" << this->finalExamDate.getYear() << endl;
+    cout << "Course Syllabus: " << this->mCourseSyllabus << endl;
+    cout << "Course Start Date: " << this->mCourseStartDate.getDay() << "/" << this->mCourseStartDate.getMonth() << "/" << this->mCourseStartDate.getYear() << endl;
+    cout << "Course End Date: " << this->mCourseEndDate.getDay() << "/" << this->mCourseEndDate.getMonth() << "/" << this->mCourseEndDate.getYear() << endl;
+    cout << "Midterm Date: " << this->mMidTermDate.getDay() << "/" << this->mMidTermDate.getMonth() << "/" << this->mMidTermDate.getYear() << endl;
+    cout << "Final Exam Date: " << this->mFinalExamDate.getDay() << "/" << this->mFinalExamDate.getMonth() << "/" << this->mFinalExamDate.getYear() << endl;
     cout << "Exams: " << endl;
-    for (int i = 0; i < this->examNums; i++)
+    for (int i = 0; i < this->mExamNums; i++)
     {
         if (i != 0)
             cout << "\n"
                  << "========= Next Exam ========="
                  << "\n"
                  << endl;
-        this->exams[i].printExam();
+        this->mPExams[i].printExam();
     }
 }
 
 Course *Course::operator=(Course *course)
 {
-    this->courseName = course->getCourseName();
-    this->courseCode = course->getCourseCode();
-    this->courseSyllabus = course->getCourseSyllabus();
-    this->courseStartDate = course->getCourseStartDate();
-    this->courseEndDate = course->getCourseEndDate();
-    this->midTermDate = course->getMidTermDate();
-    this->finalExamDate = course->getFinalExamDate();
-    this->exams = course->getExams();
-    this->examNums = course->getExamNums();
-    this->professor = course->getProfessor();
+    this->mCourseName = course->getCourseName();
+    this->mCourseCode = course->getCourseCode();
+    this->mCourseSyllabus = course->getCourseSyllabus();
+    this->mCourseStartDate = course->getCourseStartDate();
+    this->mCourseEndDate = course->getCourseEndDate();
+    this->mMidTermDate = course->getMidTermDate();
+    this->mFinalExamDate = course->getFinalExamDate();
+    this->mPExams = course->getExams();
+    this->mExamNums = course->getExamNums();
+    this->mPProfessor = course->getProfessor();
     return this;
 }
 

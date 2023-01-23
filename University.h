@@ -4,16 +4,16 @@
 class University
 {
 private:
-    string universityName;
+    string mUniversityName;
 
-    Term *terms;
-    Course *courses;
-    Student *students;
-    Professor *professors;
-    int termNums;
-    int courseNums;
-    int studentNums;
-    int professorNums;
+    Term *mPTerms;
+    Course *mPCourses;
+    Student *mPStudents;
+    Professor *mPProfessors;
+    int mTermNums;
+    int mCourseNums;
+    int mStudentNums;
+    int mProfessorNums;
 
 public:
     University(string universityName, Term *terms, int termNums,
@@ -50,149 +50,149 @@ University::University(string universityName, Term *terms, int termNums,
                        Student *students, int studentNums,
                        Professor *professors, int professorNums)
 {
-    this->universityName = universityName;
-    this->terms = terms;
-    this->termNums = termNums;
-    this->courses = courses;
-    this->courseNums = courseNums;
-    this->students = students;
-    this->studentNums = studentNums;
-    this->professors = professors;
-    this->professorNums = professorNums;
+    this->mUniversityName = universityName;
+    this->mPTerms = terms;
+    this->mTermNums = termNums;
+    this->mPCourses = courses;
+    this->mCourseNums = courseNums;
+    this->mPStudents = students;
+    this->mStudentNums = studentNums;
+    this->mPProfessors = professors;
+    this->mProfessorNums = professorNums;
 }
 
 University::University()
 {
-    this->universityName = "Unknown";
-    this->terms = nullptr;
-    this->termNums = 0;
-    this->courses = nullptr;
-    this->courseNums = 0;
-    this->students = nullptr;
-    this->studentNums = 0;
-    this->professors = nullptr;
-    this->professorNums = 0;
+    this->mUniversityName = "Unknown";
+    this->mPTerms = nullptr;
+    this->mTermNums = 0;
+    this->mPCourses = nullptr;
+    this->mCourseNums = 0;
+    this->mPStudents = nullptr;
+    this->mStudentNums = 0;
+    this->mPProfessors = nullptr;
+    this->mProfessorNums = 0;
 }
 
 string University::getUniversityName()
 {
-    return this->universityName;
+    return this->mUniversityName;
 }
 
 Term *University::getTerms()
 {
-    return this->terms;
+    return this->mPTerms;
 }
 
 Course *University::getCourses()
 {
-    return this->courses;
+    return this->mPCourses;
 }
 
 Student *University::getStudents()
 {
-    return this->students;
+    return this->mPStudents;
 }
 
 Professor *University::getProfessors()
 {
-    return this->professors;
+    return this->mPProfessors;
 }
 
 int University::getTermNums()
 {
-    return this->termNums;
+    return this->mTermNums;
 }
 
 int University::getCourseNums()
 {
-    return this->courseNums;
+    return this->mCourseNums;
 }
 
 int University::getStudentNums()
 {
-    return this->studentNums;
+    return this->mStudentNums;
 }
 
 int University::getProfessorNums()
 {
-    return this->professorNums;
+    return this->mProfessorNums;
 }
 
 void University::setUniversityName(string universityName)
 {
-    this->universityName = universityName;
+    this->mUniversityName = universityName;
 }
 
 void University::setTerms(Term *terms)
 {
-    this->terms = terms;
+    this->mPTerms = terms;
 }
 
 void University::setCourses(Course *courses)
 {
-    this->courses = courses;
+    this->mPCourses = courses;
 }
 
 void University::setStudents(Student *students)
 {
-    this->students = students;
+    this->mPStudents = students;
 }
 
 void University::setProfessors(Professor *professors)
 {
-    this->professors = professors;
+    this->mPProfessors = professors;
 }
 
 void University::setTermNums(int termNums)
 {
-    this->termNums = termNums;
+    this->mTermNums = termNums;
 }
 
 void University::setCourseNums(int courseNums)
 {
-    this->courseNums = courseNums;
+    this->mCourseNums = courseNums;
 }
 
 void University::setStudentNums(int studentNums)
 {
-    this->studentNums = studentNums;
+    this->mStudentNums = studentNums;
 }
 
 void University::setProfessorNums(int professorNums)
 {
-    this->professorNums = professorNums;
+    this->mProfessorNums = professorNums;
 }
 
 void University::print()
 {
-    cout << "University Name: " << this->universityName << endl;
+    cout << "University Name: " << this->mUniversityName << endl;
     cout << "Terms: " << endl;
-    for (int i = 0; i < this->termNums; i++)
+    for (int i = 0; i < this->mTermNums; i++)
     {
         cout << "Term " << i << ": " << endl;
-        this->terms[i].printTerm();
+        this->mPTerms[i].printTerm();
     }
 
     cout << "Courses: " << endl;
-    for (int i = 0; i < this->courseNums; i++)
+    for (int i = 0; i < this->mCourseNums; i++)
     {
         cout << "Course " << i << ": " << endl;
-        this->courses[i].printCourse();
+        this->mPCourses[i].printCourse();
     }
 
     cout << "Students: " << endl;
-    for (int i = 0; i < this->studentNums; i++)
+    for (int i = 0; i < this->mStudentNums; i++)
     {
         cout << "Student " << i << ": " << endl;
-        this->students[i].print();
+        this->mPStudents[i].print();
     }
 
     cout << "Professors: " << endl;
-    for (int i = 0; i < this->professorNums; i++)
+    for (int i = 0; i < this->mProfessorNums; i++)
     {
         cout << "Professor " << i << ": " << endl;
-        this->professors[i].print();
+        this->mPProfessors[i].print();
     }
 }
 

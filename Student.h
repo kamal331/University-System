@@ -3,8 +3,8 @@
 class Student : public Person
 {
 private:
-    Course *courses;
-    int courseNums;
+    Course *mPCourses;
+    int mCourseNums;
 
 public:
     Student(string name, string password, uint8_t *salt,
@@ -26,34 +26,34 @@ Student::Student(string name, string password, uint8_t *salt,
                  int id, Course *courses,
                  int courseNums) : Person(name, password, salt, id)
 {
-    this->courses = courses;
-    this->courseNums = courseNums;
+    this->mPCourses = courses;
+    this->mCourseNums = courseNums;
 }
 
 Student::Student() : Person()
 {
-    this->courses = nullptr;
-    this->courseNums = 0;
+    this->mPCourses = nullptr;
+    this->mCourseNums = 0;
 }
 
 Course *Student::getCourses()
 {
-    return this->courses;
+    return this->mPCourses;
 }
 
 int Student::getCourseNums()
 {
-    return this->courseNums;
+    return this->mCourseNums;
 }
 
 void Student::setCourses(Course *courses)
 {
-    this->courses = courses;
+    this->mPCourses = courses;
 }
 
 void Student::setCourseNums(int courseNums)
 {
-    this->courseNums = courseNums;
+    this->mCourseNums = courseNums;
 }
 
 void Student::print()

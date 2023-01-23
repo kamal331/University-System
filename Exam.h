@@ -4,9 +4,9 @@
 class Exam
 {
 private:
-    string subject;
-    Problem *problems;
-    int problemNums;
+    string mSubject;
+    Problem *mPProblems;
+    int mProblemNums;
 
 public:
     Exam(string subject, Problem *problems, int problemNums);
@@ -27,70 +27,70 @@ public:
 
 Exam::Exam(string subject, Problem *problems, int problemNums)
 {
-    this->subject = subject;
-    this->problems = problems;
-    this->problemNums = problemNums;
+    this->mSubject = subject;
+    this->mPProblems = problems;
+    this->mProblemNums = problemNums;
 }
 
 Exam::Exam()
 {
-    this->subject = "";
-    this->problems = nullptr;
-    this->problemNums = 0;
+    this->mSubject = "";
+    this->mPProblems = nullptr;
+    this->mProblemNums = 0;
 }
 
 string Exam::getSubject()
 {
-    return this->subject;
+    return this->mSubject;
 }
 
 string Exam::getExamName()
 {
-    return this->subject;
+    return this->mSubject;
 }
 
 Problem *Exam::getProblems()
 {
-    return this->problems;
+    return this->mPProblems;
 }
 
 int Exam::getProblemNums()
 {
-    return this->problemNums;
+    return this->mProblemNums;
 }
 
 void Exam::setSubject(string subject)
 {
-    this->subject = subject;
+    this->mSubject = subject;
 }
 
 void Exam::setProblems(Problem *problems)
 {
-    this->problems = problems;
+    this->mPProblems = problems;
 }
 
 void Exam::setproblemNums(int problemNums)
 {
-    this->problemNums = problemNums;
+    this->mProblemNums = problemNums;
 }
 
 void Exam::printExam()
 {
-    cout << "Subject: " << this->subject << endl;
-    cout << "Problem Numbers: " << this->problemNums << endl;
+    cout << "Subject: " << this->mSubject << endl;
+    cout << "Problem Numbers: " << this->mProblemNums << endl;
     cout << "Problems: " << endl;
-    for (int i = 0; i < this->problemNums; i++)
+    for (int i = 0; i < this->mProblemNums; i++)
     {
         cout << "===== ✳  Problem " << i + 1 << "✳  =====" << endl;
-        problems[i].printProblem();
+        mPProblems[i].printProblem();
     }
 }
 
 Exam *Exam::operator=(Exam *exam)
 {
-    this->subject = exam->subject;
-    this->problems = exam->problems;
-    this->problemNums = exam->problemNums;
+    this->mSubject = exam->mSubject;
+    this->mPProblems = exam->mPProblems;
+    this->mProblemNums = exam->mProblemNums;
     return this;
 }
 

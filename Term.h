@@ -4,13 +4,13 @@
 class Term
 {
 private:
-    string termName;
-    int termCode;
-    Date termStartDate;
-    Date termEndDate;
-    Date gradesDeadline;
-    Course *courses;
-    int courseNums;
+    string mTermName;
+    int mTermCode;
+    Date mTermStartDate;
+    Date mTermEndDate;
+    Date mGradesDeadline;
+    Course *mPCourses;
+    int mCourseNums;
 
 public:
     Term(string termName, int termCode,
@@ -38,123 +38,124 @@ public:
     // ~Term();
 };
 
-Term::Term(string termName, int termCode, Date termStartDate, Date termEndDate, Date gradesDeadline, Course *courses, int courseNums)
+Term::Term(string termName, int termCode, Date termStartDate,
+           Date termEndDate, Date gradesDeadline, Course *courses, int courseNums)
 {
-    this->termName = termName;
-    this->termCode = termCode;
-    this->termStartDate = termStartDate;
-    this->termEndDate = termEndDate;
-    this->gradesDeadline = gradesDeadline;
-    this->courses = courses;
-    this->courseNums = courseNums;
+    this->mTermName = termName;
+    this->mTermCode = termCode;
+    this->mTermStartDate = termStartDate;
+    this->mTermEndDate = termEndDate;
+    this->mGradesDeadline = gradesDeadline;
+    this->mPCourses = courses;
+    this->mCourseNums = courseNums;
 }
 
 Term::Term()
 {
-    this->termName = "";
-    this->termCode = 0;
-    this->termStartDate = Date();
-    this->termEndDate = Date();
-    this->gradesDeadline = Date();
-    this->courses = nullptr;
-    this->courseNums = 0;
+    this->mTermName = "";
+    this->mTermCode = 0;
+    this->mTermStartDate = Date();
+    this->mTermEndDate = Date();
+    this->mGradesDeadline = Date();
+    this->mPCourses = nullptr;
+    this->mCourseNums = 0;
 }
 
 string Term::getTermName()
 {
-    return this->termName;
+    return this->mTermName;
 }
 
 int Term::getTermCode()
 {
-    return this->termCode;
+    return this->mTermCode;
 }
 
 Date Term::getTermStartDate()
 {
-    return this->termStartDate;
+    return this->mTermStartDate;
 }
 
 Date Term::getTermEndDate()
 {
-    return this->termEndDate;
+    return this->mTermEndDate;
 }
 
 Date Term::getGradesDeadline()
 {
-    return this->gradesDeadline;
+    return this->mGradesDeadline;
 }
 
 Course *Term::getCourses()
 {
-    return this->courses;
+    return this->mPCourses;
 }
 
 int Term::getCourseNums()
 {
-    return this->courseNums;
+    return this->mCourseNums;
 }
 
 void Term::setTermName(string termName)
 {
-    this->termName = termName;
+    this->mTermName = termName;
 }
 
 void Term::setTermCode(int termCode)
 {
-    this->termCode = termCode;
+    this->mTermCode = termCode;
 }
 
 void Term::setTermStartDate(Date termStartDate)
 {
-    this->termStartDate = termStartDate;
+    this->mTermStartDate = termStartDate;
 }
 
 void Term::setTermEndDate(Date termEndDate)
 {
-    this->termEndDate = termEndDate;
+    this->mTermEndDate = termEndDate;
 }
 
 void Term::setGradesDeadline(Date gradesDeadline)
 {
-    this->gradesDeadline = gradesDeadline;
+    this->mGradesDeadline = gradesDeadline;
 }
 
 void Term::setCourses(Course *courses)
 {
-    this->courses = courses;
+    this->mPCourses = courses;
 }
 
 void Term::setCourseNums(int courseNums)
 {
-    this->courseNums = courseNums;
+    this->mCourseNums = courseNums;
 }
 
 void Term::printTerm()
 {
     cout << "========== Term ===========" << endl;
-    cout << "Term Name: " << this->termName << endl;
-    cout << "Term Code: " << this->termCode << endl;
-    cout << "Term Start Date: " << this->termStartDate.getDay() << "/" << this->termStartDate.getMonth() << "/" << this->termStartDate.getYear() << endl;
-    cout << "Term End Date: " << this->termEndDate.getDay() << "/" << this->termEndDate.getMonth() << "/" << this->termEndDate.getYear() << endl;
-    cout << "Grades Deadline: " << this->gradesDeadline.getDay() << "/" << this->gradesDeadline.getMonth() << "/" << this->gradesDeadline.getYear() << endl;
-    cout << "Course Numbers: " << this->courseNums << endl;
+    cout << "Term Name: " << this->mTermName << endl;
+    cout << "Term Code: " << this->mTermCode << endl;
+    cout << "Term Start Date: " << this->mTermStartDate.getDay() << "/" << this->mTermStartDate.getMonth() << "/" << this->mTermStartDate.getYear() << endl;
+    cout << "Term End Date: " << this->mTermEndDate.getDay() << "/" << this->mTermEndDate.getMonth() << "/" << this->mTermEndDate.getYear() << endl;
+    cout << "Grades Deadline: " << this->mGradesDeadline.getDay() << "/" << this->mGradesDeadline.getMonth() << "/" << this->mGradesDeadline.getYear() << endl;
+    cout << "Course Numbers: " << this->mCourseNums << endl;
     cout << "========== Course ===========" << endl;
-    for (int i = 0; i < this->courseNums; i++)
+    for (int i = 0; i < this->mCourseNums; i++)
     {
-        this->courses[i].printCourse();
+        this->mPCourses[i].printCourse();
     }
 }
 
 Term *Term::operator=(Term *term)
 {
-    this->termName = term->termName;
-    this->termCode = term->termCode;
-    this->termStartDate = term->termStartDate;
-    this->termEndDate = term->termEndDate;
-    this->gradesDeadline = term->gradesDeadline;
-    this->courses = term->courses;
-    this->courseNums = term->courseNums;
+    this->mTermName = term->mTermName;
+    this->mTermCode = term->mTermCode;
+    this->mTermStartDate = term->mTermStartDate;
+    this->mTermEndDate = term->mTermEndDate;
+    this->mGradesDeadline = term->mGradesDeadline;
+    this->mPCourses = term->mPCourses;
+    this->mCourseNums = term->mCourseNums;
     return this;
 }
 

@@ -4,10 +4,10 @@
 class Person
 {
 private:
-    string name;
-    string password;
-    uint8_t *salt;
-    int id;
+    string mName;
+    string mPassword;
+    uint8_t *mPSalt;
+    int mId;
 
 public:
     Person(string name, string password, uint8_t *salt, int id);
@@ -28,62 +28,62 @@ public:
 
 Person::Person(string name, string password, uint8_t *salt, int id)
 {
-    this->name = name;
-    this->password = password;
-    this->salt = salt;
-    this->id = id;
+    this->mName = name;
+    this->mPassword = password;
+    this->mPSalt = salt;
+    this->mId = id;
 }
 
 Person::Person()
 {
-    this->name = "";
-    this->password = "";
-    this->id = 0;
+    this->mName = "";
+    this->mPassword = "";
+    this->mId = 0;
 }
 
 string Person::getName()
 {
-    return this->name;
+    return this->mName;
 }
 
 string Person::getPassword()
 {
-    return this->password;
+    return this->mPassword;
 }
 
 uint8_t *Person::getSalt()
 {
-    return this->salt;
+    return this->mPSalt;
 }
 
 int Person::getId()
 {
-    return this->id;
+    return this->mId;
 }
 
 void Person::setName(string name)
 {
-    this->name = name;
+    this->mName = name;
 }
 
 void Person::setPassword(string password)
 {
-    this->password = password;
+    this->mPassword = password;
 }
 
 void Person::setSalt(uint8_t *salt)
 {
-    this->salt = salt;
+    this->mPSalt = salt;
 }
 
 void Person::setId(int id)
 {
-    this->id = id;
+    this->mId = id;
 }
 
 Person::~Person()
 {
-    delete[] this->salt;
+    delete[] this->mPSalt;
 }
 
 #endif

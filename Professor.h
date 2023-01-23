@@ -4,8 +4,8 @@
 class Professor : public Person
 {
 private:
-    Course *courses;
-    int courseNums;
+    Course *mPCourses;
+    int mCourseNums;
 
 public:
     Professor(string name, string password, uint8_t *salt,
@@ -27,34 +27,34 @@ Professor::Professor(string name, string password, uint8_t *salt,
                      int id, Course *courses,
                      int courseNums) : Person(name, password, salt, id)
 {
-    this->courses = courses;
-    this->courseNums = courseNums;
+    this->mPCourses = courses;
+    this->mCourseNums = courseNums;
 }
 
 Professor::Professor() : Person()
 {
-    this->courses = nullptr;
-    this->courseNums = 0;
+    this->mPCourses = nullptr;
+    this->mCourseNums = 0;
 }
 
 Course *Professor::getCourses()
 {
-    return this->courses;
+    return this->mPCourses;
 }
 
 int Professor::getCourseNums()
 {
-    return this->courseNums;
+    return this->mCourseNums;
 }
 
 void Professor::setCourses(Course *courses)
 {
-    this->courses = courses;
+    this->mPCourses = courses;
 }
 
 void Professor::setCourseNums(int courseNums)
 {
-    this->courseNums = courseNums;
+    this->mCourseNums = courseNums;
 }
 
 void Professor::print()
