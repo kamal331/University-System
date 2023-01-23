@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <random>
+#include <unistd.h>
 
 using namespace std;
 
@@ -24,7 +25,9 @@ bool adminLogin();
 void adminMenu();
 void addStudent();
 void addProfessor();
-void addCourse();
+Course *addCourse();
+Term *addTerm();
+
 int _getNewStudentId();
 int _getNewProfessorId();
 int _getNewCourseCode();
@@ -53,11 +56,13 @@ int gAdminId = 0;
 int gCourseCode = 0;
 int gTermCode = 0;
 
-Student *pStudents = new Student[MAX_STUDENT_NUM];
-Admin *pAdmins = new Admin[MAX_ADMIN_NUM];
-Professor *pProfessors = new Professor[MAX_PROFESSOR_NUM];
-Course *pCourses = new Course[MAX_COURSE_NUM];
-Term *pTerms = new Term[MAX_TERM_NUM];
+Student *gPStudents = new Student[MAX_STUDENT_NUM];
+Admin *gPAdmins = new Admin[MAX_ADMIN_NUM];
+Professor *gPProfessors = new Professor[MAX_PROFESSOR_NUM];
+Course *gPCourses = new Course[MAX_COURSE_NUM];
+Term *gPTerms = new Term[MAX_TERM_NUM];
+
+#include "AdminLogin.h"
 
 // ================= Main =================
 
@@ -150,247 +155,16 @@ int main()
     // u1.setTermNums(1);
     // u1.print();
 
+    // ================== Admin test ==================
+
     uint8_t *salt = randomString(32);
 
     Admin *admin = new Admin("Natasha", getArgon2Hash("1234", salt), salt, 0);
-    pAdmins[gAdminId++] = admin;
+    gPAdmins[gAdminId++] = admin;
 
     mainMenu();
 
     return 0;
-}
-
-void mainMenu()
-{
-    cout << "=========== 🏢  Welcome to the University 🏢  ===========" << endl;
-    string choices[5] = {"1. Login as a student 🧑‍🎓",
-                         "2. Login as a professor 🧑‍🏫",
-                         "3. Login as an admin 🧑‍💻",
-                         "4. Exit 🚪"};
-    string choice;
-    while (true)
-    {
-        CLEAR_SCREEN();
-        cout << "What would you like to do?" << endl;
-        for (string choice : choices)
-            cout << choice << endl;
-        cin >> choice;
-
-        if (choice == "1")
-        {
-            cout << "You chose to login as a student" << endl;
-            break;
-        }
-        else if (choice == "2")
-        {
-            cout << "You chose to login as a professor" << endl;
-            break;
-        }
-        else if (choice == "3")
-        {
-            adminMenu();
-        }
-        else if (choice == "4")
-        {
-            cout << "You chose to exit" << endl;
-            exit(0);
-        }
-        else
-        {
-            cout << "Invalid choice" << endl;
-        }
-    }
-}
-
-// ================== Admin Menu ==================
-
-void adminMenu()
-{
-    while (!adminLogin())
-    {
-        cout << "Try again? (y/n)" << endl;
-        string choice;
-        cin >> choice;
-        if (choice == "n")
-            return;
-    }
-    cout << "=========== 🧑‍💻  Welcome to the Admin Menu 🧑‍💻  ===========" << endl;
-    string choices[6] = {"1. Add a student 🧑‍🎓",
-                         "2. Add a professor 🧑‍🏫",
-                         "3. Add a course 📚",
-                         "4. Add a term 📅",
-                         "5. Back to Last Page 🔙",
-                         "6. Exit 🚪"};
-    string choice;
-
-    while (true)
-    {
-        CLEAR_SCREEN();
-        cout << "What would you like to do?" << endl;
-        for (string choice : choices) // Print Menu
-            cout << choice << endl;
-        cin >> choice;
-
-        if (choice == "1")
-        {
-            addStudent();
-            pStudents[gStudentId - 1].print();
-            BACK_TO_LAST_PAGE();
-        }
-        else if (choice == "2")
-        {
-            addProfessor();
-            pProfessors[gProfessorId - 1].print();
-            BACK_TO_LAST_PAGE();
-        }
-        else if (choice == "3")
-        {
-            addCourse();
-            pCourses[gCourseCode - 1].print();
-            BACK_TO_LAST_PAGE();
-        }
-        else if (choice == "4")
-        {
-            cout << "You chose to add a term" << endl;
-        }
-        else if (choice == "5")
-        {
-            break;
-        }
-        else if (choice == "6")
-        {
-            cout << "You chose to exit" << endl;
-            exit(0);
-        }
-
-        else
-        {
-            cout << "Invalid choice" << endl;
-        }
-    }
-}
-
-bool adminLogin()
-{
-    CLEAR_SCREEN();
-    int id;
-    string password;
-
-    cout << "Enter your ID: ";
-    cin >> id;
-    cout << "Enter your password: ";
-    cin >> password;
-
-    for (int i = 0; i < gAdminId; i++)
-    {
-        if (pAdmins[i].getId() == id)
-        {
-            if (verifyArgon2Hash(password, pAdmins[i].getPassword(), pAdmins[i].getSalt()))
-            {
-                cout << "Login successful ✅" << endl;
-                return true;
-            }
-            else
-                cout << "Wrong password ❌" << endl;
-        }
-    }
-    cout << "Login Failed!" << endl;
-    return false;
-}
-
-void addStudent()
-{
-    CLEAR_SCREEN();
-    string name;
-    string password;
-    uint8_t *salt = new uint8_t[32];
-
-    salt = randomString(32);
-    int id = _getNewStudentId();
-
-    cout << "Enter student's name: ";
-    cin >> name;
-
-    _getPaasword();
-
-    Student *s = new Student(name, getArgon2Hash(password, salt), salt, id, nullptr, 0);
-    pStudents[gStudentId - 1] = s;
-    cout << "Student added successfully ✅" << endl;
-}
-
-void addProfessor()
-{
-    CLEAR_SCREEN();
-    string name;
-    string password;
-    uint8_t *salt = new uint8_t[32];
-
-    salt = randomString(32);
-    int id = _getNewProfessorId();
-
-    cout << "Enter professor's name: ";
-    cin >> name;
-
-    _getPaasword();
-
-    Professor *prof = new Professor(name, getArgon2Hash(password, salt), salt, id, nullptr, 0);
-    pProfessors[gProfessorId - 1] = prof;
-    cout << "Professor added successfully ✅" << endl;
-}
-
-void addCourse()
-{
-    CLEAR_SCREEN();
-    string name;
-
-    cout << "Enter course's name: ";
-    cin >> name;
-
-    int code = _getNewCourseCode();
-
-    char *pSyllabus = new char[MAX_SYLLABUS_SIZE];
-
-    cout << "Enter course's syllabus: ";
-    char c = '=';
-    int i = 0;
-    EMPTY_BUFFER();
-
-    c = getchar();
-    while ((c != '\n') && (c != EOF) && (i < MAX_SYLLABUS_SIZE))
-    {
-        pSyllabus[i] = c;
-        ++i;
-        c = getchar();
-    }
-    pSyllabus[i] = '\0';
-
-    Date *pStartDate = new Date();
-    Date *pEndDate = new Date();
-    Date *pMidTermDate = new Date();
-    Date *pFinalExamDate = new Date();
-
-    cout << "Enter course's start date: ";
-    cin >> *pStartDate;
-
-    cout << "Enter course's end date: ";
-    cin >> *pEndDate;
-
-    cout << "Enter course's mid term date: ";
-    cin >> *pMidTermDate;
-
-    cout << "Enter course's final exam date: ";
-    cin >> *pFinalExamDate;
-
-    Exam *pExams = new Exam[MAX_EXAM_NUM];
-    int examNum = 0;
-
-    Professor *pProfessors = new Professor;
-
-    Course *course = new Course(name, code, pSyllabus, pStartDate, pEndDate,
-                                pMidTermDate, pFinalExamDate, pExams, examNum, pProfessors);
-
-    pCourses[gCourseCode - 1] = course;
-    cout << "Course added successfully ✅" << endl;
 }
 
 int _getNewStudentId()

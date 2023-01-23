@@ -32,7 +32,7 @@ public:
     void setGradesDeadline(Date *GradesDeadline);
     void setCourses(Course *courses);
     void setCourseNums(int courseNums);
-    void printTerm();
+    void print();
 
     Term *operator=(Term *term);
     // ~Term();
@@ -131,7 +131,7 @@ void Term::setCourseNums(int courseNums)
     this->mCourseNums = courseNums;
 }
 
-void Term::printTerm()
+void Term::print()
 {
     cout << "========== Term ===========" << endl;
     cout << "Term Name: " << this->mTermName << endl;

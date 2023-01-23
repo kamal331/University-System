@@ -14,7 +14,7 @@
 #define MAX_PROFESSOR_NUM 10
 #define MAX_ADMIN_NUM 10
 #define MAX_COURSE_NUM 10
-#define MAX_TERM_NUM 10
+#define MAX_TERM_NUM 8
 
 #define MAX_EXAM_NUM 10
 
@@ -28,8 +28,7 @@ string _getPaasword()
     while (true)
     {
         CLEAR_SCREEN();
-        cout << "Enter the password: ";
-        cin >> password;
+        password = getpass("Enter the password: ");
         if (_isPassStrong(password))
             return password;
         else

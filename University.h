@@ -171,7 +171,7 @@ void University::print()
     for (int i = 0; i < this->mTermNums; i++)
     {
         cout << "Term " << i << ": " << endl;
-        this->mPTerms[i].printTerm();
+        this->mPTerms[i].print();
     }
 
     cout << "Courses: " << endl;
