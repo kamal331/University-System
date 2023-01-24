@@ -24,7 +24,7 @@ public:
     Date *getTermStartDate();
     Date *getTermEndDate();
     Date *getGradesDeadline();
-    vector<Course> getCourses();
+    vector<Course> &getCourses();
     int getCourseNums();
 
     void setTermName(string termName);
@@ -32,7 +32,7 @@ public:
     void setTermStartDate(Date *termStartDate);
     void setTermEndDate(Date *termEndDate);
     void setGradesDeadline(Date *GradesDeadline);
-    void setCourse(Course courses);
+    void setCourse(Course &courses);
     void setCourseNums(int courseNums);
     void print();
 
@@ -86,7 +86,7 @@ Date *Term::getGradesDeadline()
     return this->mPGradesDeadline;
 }
 
-vector<Course> Term::getCourses()
+vector<Course> &Term::getCourses()
 {
     return this->mCourses;
 }
@@ -121,7 +121,7 @@ void Term::setGradesDeadline(Date *gradesDeadline)
     this->mPGradesDeadline = gradesDeadline;
 }
 
-void Term::setCourse(Course courses)
+void Term::setCourse(Course &courses)
 {
     this->mCourses.push_back(courses);
 }

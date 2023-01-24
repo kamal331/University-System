@@ -10,7 +10,7 @@ public:
     Student(string name, string password, uint8_t *salt,
             int id, int courseNums);
     Student();
-    vector<Course> getCourses();
+    vector<Course> &getCourses();
     int getCourseNums();
 
     void setCourses(Course courses);
@@ -33,7 +33,7 @@ Student::Student() : Person()
     this->mCourseNums = 0;
 }
 
-vector<Course> Student::getCourses()
+vector<Course> &Student::getCourses()
 {
     return this->mCourses;
 }

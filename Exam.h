@@ -16,11 +16,11 @@ public:
     string getSubject();
     string getExamName();
     // Problem *getProblems();
-    vector<Problem> getProblems();
+    vector<Problem> &getProblems();
     int getProblemNums();
 
     void setSubject(string subject);
-    void setProblems(Problem problem);
+    void setProblems(Problem &problem);
     void setproblemNums(int problemNums);
     void printExam();
 
@@ -51,7 +51,7 @@ string Exam::getExamName()
     return this->mSubject;
 }
 
-vector<Problem> Exam::getProblems()
+vector<Problem> &Exam::getProblems()
 {
     return mProblems;
 }
@@ -66,7 +66,7 @@ void Exam::setSubject(string subject)
     this->mSubject = subject;
 }
 
-void Exam::setProblems(Problem problem)
+void Exam::setProblems(Problem &problem)
 {
     mProblems.push_back(problem);
 }

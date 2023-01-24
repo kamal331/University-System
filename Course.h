@@ -33,7 +33,7 @@ public:
     Date *getCourseEndDate();
     Date *getMidTermDate();
     Date *getFinalExamDate();
-    vector<Exam> getExams();
+    vector<Exam> &getExams();
     int getExamNums();
     Professor *getProfessor();
 
@@ -119,7 +119,7 @@ Date *Course::getFinalExamDate()
     return this->mPFinalExamDate;
 }
 
-vector<Exam> Course::getExams()
+vector<Exam> &Course::getExams()
 {
     return this->mExams;
 }
@@ -172,6 +172,7 @@ void Course::setFinalExamDate(Date *finalExamDate)
 void Course::setExams(Exam exams)
 {
     mExams.push_back(exams);
+    this->mExamNums++;
 }
 
 void Course::setExamNums(int examNums)

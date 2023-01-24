@@ -14,12 +14,13 @@ void adminMenu()
             return;
     }
     cout << "=========== 🧑‍💻  Welcome to the Admin Menu 🧑‍💻  ===========" << endl;
-    string choices[6] = {"1. Add a student 🧑‍🎓",
+    string choices[7] = {"1. Add a student 🧑‍🎓",
                          "2. Add a professor 🧑‍🏫",
                          "3. Add a course 📚",
                          "4. Add a term 📅",
-                         "5. Back to Last Page 🔙",
-                         "6. Exit 🚪"};
+                         "5. Set a course to a professor 📝",
+                         "6. Back to Last Page 🔙",
+                         "7. Exit 🚪"};
     string choice;
 
     while (true)
@@ -57,9 +58,15 @@ void adminMenu()
 
         else if (choice == "5")
         {
+            setCourseToProfessor();
+            BACK_TO_LAST_PAGE();
+        }
+
+        else if (choice == "6")
+        {
             break;
         }
-        else if (choice == "6")
+        else if (choice == "7")
         {
             cout << "You chose to exit 🚪" << endl;
             exit(0);
@@ -203,6 +210,33 @@ void addCourse()
     gCourses.push_back(course);
 
     gProfessors.at(id).setCourse(course);
+}
+
+void setCourseToProfessor()
+{
+    CLEAR_SCREEN();
+    printAllCourses();
+    cout << "Which professor do you want to set course for? (Enter professor's ID):" << endl;
+    int id;
+    cin >> id;
+
+    cout << "Which course do you want to set for this professor? (Enter course's code):" << endl;
+    int code;
+    cin >> code;
+
+    gProfessors.at(id).setCourse(gCourses.at(code));
+    gProfessors.at(id).setCourseNums(gProfessors.at(id).getCourseNums() + 1);
+    cout << "Course set successfully ✅" << endl;
+}
+
+void printAllCourses()
+{
+    CLEAR_SCREEN();
+    cout << "All courses: " << endl;
+    for (int i = 0; i < gCourses.size(); i++)
+    {
+        cout << i << ". " << gCourses.at(i).getCourseName() << endl;
+    }
 }
 
 Term addTerm()

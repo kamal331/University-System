@@ -45,6 +45,7 @@ void addStudent();
 void addProfessor();
 void addCourse();
 Term addTerm();
+void setCourseToProfessor();
 
 void addNewExam(Professor &professor);
 
@@ -58,6 +59,8 @@ Problem _getMultipleChoice();
 Problem _getTrueFalse();
 Problem _getFillInTheBlank();
 Problem _getLongAnswer();
+
+void printAllCourses();
 
 bool _isPassStrong(string password);
 string _getPaasword();
@@ -226,7 +229,6 @@ void mainMenu()
         else if (choice == "2")
         {
             professorMenu();
-            break;
         }
         else if (choice == "3")
         {
@@ -287,7 +289,6 @@ void professorMenu()
         else if (choice == "2")
         {
             addNewExam(gProfessors.at(id));
-            gProfessors.at(id).print();
             BACK_TO_LAST_PAGE();
         }
         else if (choice == "3")
@@ -337,8 +338,10 @@ void addNewExam(Professor &professor)
 
     for (int i = 0; i < professor.getCourseNums(); i++)
     {
+        cout << "=========" << endl;
         if (professor.getCourses().at(i).getCourseCode() == courseCode)
         {
+            cout << "Course found ✅" << endl;
 
             cout << "Enter the exam name: ";
             string examName;
@@ -353,7 +356,7 @@ void addNewExam(Professor &professor)
             for (int j = 0; j < problemNums; j++)
             {
                 cout << "======== Problem " << j + 1 << " ========" << endl;
-                problems.at(j) = getAProblem();
+                problems.push_back(getAProblem());
             }
 
             // Exam *exams = new Exam[professor.getCourses()[i].getExamNums() + 1];
@@ -363,10 +366,11 @@ void addNewExam(Professor &professor)
             // }
             // exams[professor.getCourses()[i].getExamNums()] = Exam(examName, _getNewExamCode());
             // professor.getCourses()[i].setExams(exams);
-            // professor.getCourses()[i].setExamNums(professor.getCourses()[i].getExamNums() + 1);
-            cout << "Exam added successfully ✅" << endl;
+
             Exam exam(examName, problems, problemNums);
-            professor.getCourses()[i].setExams(exam);
+            professor.getCourses().at(i).setExams(exam);
+            isDone = true;
+            cout << "Exam added successfully ✅" << endl;
             return;
         }
     }
@@ -411,6 +415,8 @@ Problem _getMultipleChoice()
     string problemType;
     string choices[4];
     string correctChoice;
+
+    EMPTY_BUFFER();
     cout << "Enter the question: ";
     getline(cin, question);
 
@@ -434,6 +440,8 @@ Problem _getTrueFalse()
     string question;
     string problemType;
     string correctChoice;
+
+    EMPTY_BUFFER();
     cout << "Enter the question: ";
     getline(cin, question);
 
@@ -450,6 +458,8 @@ Problem _getFillInTheBlank()
     string question;
     string problemType;
     string correctChoice;
+
+    EMPTY_BUFFER();
     cout << "Enter the question: ";
     getline(cin, question);
 
@@ -466,6 +476,8 @@ Problem _getLongAnswer()
     string question;
     string problemType;
     string correctChoice;
+
+    EMPTY_BUFFER();
     cout << "Enter the question: ";
     getline(cin, question);
 

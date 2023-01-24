@@ -13,10 +13,10 @@ public:
               int id, int courseNums);
     Professor();
 
-    vector<Course> getCourses();
+    vector<Course> &getCourses();
     int getCourseNums();
 
-    void setCourse(Course courses);
+    void setCourse(Course &courses);
     void setCourseNums(int courseNums);
 
     void print();
@@ -51,12 +51,12 @@ int Professor::getCourseNums()
     return this->mCourseNums;
 }
 
-vector<Course> Professor::getCourses()
+vector<Course> &Professor::getCourses()
 {
     return this->mCourses;
 }
 
-void Professor::setCourse(Course courses)
+void Professor::setCourse(Course &courses)
 {
     mCourses.push_back(courses);
 }
@@ -68,15 +68,17 @@ void Professor::setCourseNums(int courseNums)
 
 void Professor::print()
 {
-    cout << "Name: " << this->getName() << endl;
-    cout << "ID: " << this->getId() << endl;
-    cout << "Course Num: " << this->getCourseNums() << endl;
+    cout << "+ Name: " << this->getName() << endl;
+    cout << "+ ID: " << this->getId() << endl;
+    cout << "+ Course Numbers: " << this->getCourseNums() << endl;
     for (int i = 0; i < this->getCourseNums(); i++)
     {
-        cout << "Course " << i << " Name: " << this->getCourses()[i].getCourseName() << endl;
-        cout << "Exam Num: " << this->getCourses()[i].getExamNums() << endl;
+        cout << "Course " << i << ": "
+             << " Name: " << this->getCourses()[i].getCourseName() << endl;
+        cout << "Exam Numbers: " << this->getCourses()[i].getExamNums() << endl;
         for (int j = 0; j < this->getCourses()[i].getExamNums(); j++)
-            cout << "Exam " << j << " Name: " << this->getCourses()[i].getExams()[j].getExamName() << endl;
+            cout << "Exam " << j << " => "
+                 << "Name: " << this->getCourses()[i].getExams()[j].getExamName() << endl;
     }
 }
 
