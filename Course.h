@@ -1,6 +1,9 @@
 #ifndef __COURSE_H_
 #define __COURSE_H_
+
+#define MAX_EXAM_NUM 10
 #define MAX_SYLLABUS_SIZE 40
+
 class Course
 {
 private:
@@ -12,15 +15,15 @@ private:
     Date *mPCourseEndDate;
     Date *mPMidTermDate;
     Date *mPFinalExamDate;
-    Exam *mPExams;
+    vector<Exam> mExams;
     int mExamNums;
-    Professor *mPProfessor;
+    Professor *mProfessor;
 
 public:
     Course(string courseName, int courseCode,
            char *pCourseSyllabus, Date *courseStartDate,
            Date *courseEndDate, Date *midTermDate,
-           Date *finalExamDate, Exam *exams, int examNums, Professor *professor);
+           Date *finalExamDate, vector<Exam> mExams, int examNums, Professor *professor);
 
     Course(); // default constructor
     string getCourseName();
@@ -30,7 +33,7 @@ public:
     Date *getCourseEndDate();
     Date *getMidTermDate();
     Date *getFinalExamDate();
-    Exam *getExams();
+    vector<Exam> getExams();
     int getExamNums();
     Professor *getProfessor();
 
@@ -41,21 +44,21 @@ public:
     void setCourseEndDate(Date *courseEndDate);
     void setMidTermDate(Date *midTermDate);
     void setFinalExamDate(Date *finalExamDate);
-    void setExams(Exam *exams);
+    void setExams(Exam exams);
     void setExamNums(int examNums);
     void setProfessor(Professor *professor);
 
     void print();
 
     // operator overloading for = gets a course* and assigns it to another course*:
-    Course *operator=(Course *course);
+    // Course operator=(Course *course);
     // ~Course();
 };
 
 Course::Course(string courseName, int courseCode,
                char *pCourseSyllabus, Date *courseStartDate,
                Date *courseEndDate, Date *midTermDate,
-               Date *finalExamDate, Exam *exams, int examNums, Professor *professor)
+               Date *finalExamDate, vector<Exam> exams, int examNums, Professor *professor)
 {
     this->mCourseName = courseName;
     this->mCourseCode = courseCode;
@@ -64,9 +67,9 @@ Course::Course(string courseName, int courseCode,
     this->mPCourseEndDate = courseEndDate;
     this->mPMidTermDate = midTermDate;
     this->mPFinalExamDate = finalExamDate;
-    this->mPExams = exams;
+    this->mExams = exams;
     this->mExamNums = examNums;
-    this->mPProfessor = professor;
+    this->mProfessor = professor;
 }
 
 Course::Course()
@@ -78,9 +81,7 @@ Course::Course()
     this->mPCourseEndDate = new Date();
     this->mPMidTermDate = new Date();
     this->mPFinalExamDate = new Date();
-    this->mPExams = nullptr;
     this->mExamNums = 0;
-    this->mPProfessor = nullptr;
 }
 
 string Course::getCourseName()
@@ -118,9 +119,9 @@ Date *Course::getFinalExamDate()
     return this->mPFinalExamDate;
 }
 
-Exam *Course::getExams()
+vector<Exam> Course::getExams()
 {
-    return this->mPExams;
+    return this->mExams;
 }
 
 int Course::getExamNums()
@@ -130,7 +131,7 @@ int Course::getExamNums()
 
 Professor *Course::getProfessor()
 {
-    return this->mPProfessor;
+    return this->mProfessor;
 }
 
 void Course::setCourseName(string courseName)
@@ -168,9 +169,9 @@ void Course::setFinalExamDate(Date *finalExamDate)
     this->mPFinalExamDate = finalExamDate;
 }
 
-void Course::setExams(Exam *exams)
+void Course::setExams(Exam exams)
 {
-    this->mPExams = exams;
+    mExams.push_back(exams);
 }
 
 void Course::setExamNums(int examNums)
@@ -180,7 +181,7 @@ void Course::setExamNums(int examNums)
 
 void Course::setProfessor(Professor *professor)
 {
-    this->mPProfessor = professor;
+    this->mProfessor = professor;
 }
 
 void Course::print()
@@ -210,24 +211,35 @@ void Course::print()
                  << "========= Next Exam ========="
                  << "\n"
                  << endl;
-        this->mPExams[i].printExam();
+        this->mExams.at(i).printExam();
     }
 }
 
-Course *Course::operator=(Course *course)
-{
-    this->mCourseName = course->getCourseName();
-    this->mCourseCode = course->getCourseCode();
-    this->mPCourseSyllabus = course->getCourseSyllabus();
-    this->mPCourseStartDate = course->getCourseStartDate();
-    this->mPCourseEndDate = course->getCourseEndDate();
-    this->mPMidTermDate = course->getMidTermDate();
-    this->mPFinalExamDate = course->getFinalExamDate();
-    this->mPExams = course->getExams();
-    this->mExamNums = course->getExamNums();
-    this->mPProfessor = course->getProfessor();
-    return this;
-}
+// Course Course::operator=(Course *course)
+// {
+//     cout << "operator= called" << endl;
+//     setCourseName(course->getCourseName());
+//     cout << "111111111111" << endl;
+//     mCourseCode = course->getCourseCode();
+//     cout << "222222222222" << endl;
+//     mPCourseSyllabus = course->getCourseSyllabus();
+//     cout << "333333333333" << endl;
+//     mPCourseStartDate = course->getCourseStartDate();
+//     cout << "444444444444" << endl;
+//     mPCourseEndDate = course->getCourseEndDate();
+//     cout << "555555555555" << endl;
+//     mPMidTermDate = course->getMidTermDate();
+//     cout << "666666666666" << endl;
+//     mPFinalExamDate = course->getFinalExamDate();
+//     cout << "777777777777" << endl;
+//     mPExams = course->getExams();
+//     cout << "888888888888" << endl;
+//     mExamNums = course->getExamNums();
+//     cout << "999999999999" << endl;
+//     mPProfessor = course->getProfessor();
+//     cout << "000000000000" << endl;
+//     return *this;
+// }
 
 // Course::~Course()
 // {

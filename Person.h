@@ -3,7 +3,7 @@
 
 class Person
 {
-private:
+protected:
     string mName;
     string mPassword;
     uint8_t *mPSalt;
@@ -23,7 +23,7 @@ public:
     void setId(int id);
 
     virtual void print() = 0;
-    ~Person();
+    // ~Person();
 };
 
 Person::Person(string name, string password, uint8_t *salt, int id)
@@ -81,9 +81,9 @@ void Person::setId(int id)
     this->mId = id;
 }
 
-Person::~Person()
-{
-    delete[] this->mPSalt;
-}
+// Person::~Person()
+// {
+//     delete[] this->mPSalt;
+// }
 
 #endif

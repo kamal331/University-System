@@ -9,7 +9,7 @@ public:
           int id);
     void print();
 
-    Admin *operator=(Admin *admin);
+    // Admin *operator=(Admin *admin);
 };
 
 Admin::Admin() : Person()
@@ -27,13 +27,13 @@ void Admin::print()
     cout << "Admin id: " << this->getId() << endl;
 }
 
-Admin *Admin::operator=(Admin *admin)
-{
-    this->setName(admin->getName());
-    this->setPassword(admin->getPassword());
-    this->setSalt(admin->getSalt());
-    this->setId(admin->getId());
-    return this;
-}
+// Admin *Admin::operator=(Admin *admin)
+// {
+//     this->setName(admin->getName());
+//     this->setPassword(admin->getPassword());
+//     this->setSalt(admin->getSalt());
+//     this->setId(admin->getId());
+//     return this;
+// }
 
 #endif

@@ -1,37 +1,63 @@
 #include <iostream>
-// #include <string>
+#include <string>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
 #include <random>
 #include <unistd.h>
+#include <vector>
 
 using namespace std;
+
+#define LOADING_SCREEN()                                  \
+    int index = 0;                                        \
+    char loadingArr[26];                                  \
+    while (index < 25)                                    \
+    {                                                     \
+        CLEAR_SCREEN();                                   \
+        loadingArr[index++] = '#';                        \
+        loadingArr[index] = '\0';                         \
+        cout << "Loading [" << loadingArr << "]" << endl; \
+        usleep(70000);                                    \
+    }                                                     \
+    CLEAR_SCREEN();
 
 class Date;
 class Problem;
 class Exam;
+class Professor;
 class Course;
 class Term;
 class Argon2Hash;
 class Person;
 class Student;
-class Professor;
 
 // ================= Functions =================
 void mainMenu();
 bool adminLogin();
 void adminMenu();
+
+bool professorLogin(int &id, string &password);
+void professorMenu();
+
 void addStudent();
 void addProfessor();
-Course *addCourse();
-Term *addTerm();
+void addCourse();
+Term addTerm();
+
+void addNewExam(Professor &professor);
 
 int _getNewStudentId();
 int _getNewProfessorId();
 int _getNewCourseCode();
 int _getNewTermCode();
+
+Problem getAProblem();
+Problem _getMultipleChoice();
+Problem _getTrueFalse();
+Problem _getFillInTheBlank();
+Problem _getLongAnswer();
 
 bool _isPassStrong(string password);
 string _getPaasword();
@@ -56,11 +82,16 @@ int gAdminId = 0;
 int gCourseCode = 0;
 int gTermCode = 0;
 
-Student *gPStudents = new Student[MAX_STUDENT_NUM];
-Admin *gPAdmins = new Admin[MAX_ADMIN_NUM];
-Professor *gPProfessors = new Professor[MAX_PROFESSOR_NUM];
-Course *gPCourses = new Course[MAX_COURSE_NUM];
-Term *gPTerms = new Term[MAX_TERM_NUM];
+vector<Student> gStudents;
+vector<Admin> gAdmins;
+vector<Professor> gProfessors;
+vector<Course> gCourses;
+vector<Term> gTerms;
+
+// Admin *gPAdmins = new Admin[MAX_ADMIN_NUM];
+// Professor *gPProfessors = new Professor[MAX_PROFESSOR_NUM];
+// Course *gPCourses = new Course[MAX_COURSE_NUM];
+// Term *gPTerms = new Term[MAX_TERM_NUM];
 
 #include "AdminLogin.h"
 
@@ -157,14 +188,294 @@ int main()
 
     // ================== Admin test ==================
 
+    LOADING_SCREEN();
+
     uint8_t *salt = randomString(32);
 
-    Admin *admin = new Admin("Natasha", getArgon2Hash("1234", salt), salt, 0);
-    gPAdmins[gAdminId++] = admin;
+    Admin admin("Natasha", getArgon2Hash("1234", salt), salt, 0);
+    gAdmins.push_back(admin);
+    gAdminId++;
 
     mainMenu();
 
     return 0;
+}
+
+// ================= Main Menu =================
+void mainMenu()
+{
+    cout << "=========== 🏢  Welcome to the University 🏢  ===========" << endl;
+    string choices[5] = {"1. Login as a student 🧑‍🎓",
+                         "2. Login as a professor 🧑‍🏫",
+                         "3. Login as an admin 🧑‍💻",
+                         "4. Exit 🚪"};
+    string choice;
+    while (true)
+    {
+        CLEAR_SCREEN();
+        cout << "What would you like to do?" << endl;
+        for (string choice : choices)
+            cout << choice << endl;
+        cin >> choice;
+
+        if (choice == "1")
+        {
+            cout << "You chose to login as a student" << endl;
+            break;
+        }
+        else if (choice == "2")
+        {
+            professorMenu();
+            break;
+        }
+        else if (choice == "3")
+        {
+            adminMenu();
+        }
+        else if (choice == "4")
+        {
+            cout << "You chose to exit" << endl;
+            exit(0);
+        }
+        else
+        {
+            cout << "Invalid choice" << endl;
+        }
+    }
+}
+
+// ================= Professor Menu =================
+void professorMenu()
+{
+    int id;
+    string password;
+
+    while (true)
+    {
+        CLEAR_SCREEN();
+        cout << "Enter your ID: ";
+        cin >> id;
+        password = getpass("Enter your password: ");
+        if (professorLogin(id, password))
+            break;
+        cout << "Try again? (y/n)" << endl;
+        string choice;
+        cin >> choice;
+        if (choice == "n")
+            return;
+    }
+
+    cout << "=========== 🧑‍🏫  Welcome to the Professor Menu 🧑‍🏫  ===========" << endl;
+    string choices[4] = {"1. View your courses and exams 📚 📝",
+                         "2. Add a new exam \U0000002b",
+                         "3. Back to last page 🔙",
+                         "4. Exit 🚪"};
+    string choice;
+    while (true)
+    {
+        CLEAR_SCREEN();
+        cout << "What would you like to do?" << endl;
+        for (string choice : choices)
+            cout << choice << endl;
+        cin >> choice;
+
+        if (choice == "1")
+        {
+            gProfessors.at(id).print();
+            BACK_TO_LAST_PAGE();
+        }
+        else if (choice == "2")
+        {
+            addNewExam(gProfessors.at(id));
+            gProfessors.at(id).print();
+            BACK_TO_LAST_PAGE();
+        }
+        else if (choice == "3")
+            break;
+        else if (choice == "4")
+        {
+            cout << "You chose to exit" << endl;
+            exit(0);
+        }
+        else
+        {
+            cout << "Invalid choice" << endl;
+        }
+    }
+}
+
+bool professorLogin(int &id, string &password)
+{
+    CLEAR_SCREEN();
+
+    for (int i = 0; i < gProfessorId; i++)
+    {
+        if (gProfessors.at(i).getId() == id)
+        {
+            if (verifyArgon2Hash(password, gProfessors.at(i).getPassword(), gProfessors.at(i).getSalt()))
+            {
+                cout << "Login successful ✅" << endl;
+                return true;
+            }
+            else
+                cout << "Wrong password ❌" << endl;
+        }
+    }
+    cout << "Login Failed!" << endl;
+    return false;
+}
+
+void addNewExam(Professor &professor)
+{
+    CLEAR_SCREEN();
+    cout << "=========== 📝  Add a new exam 📝  ===========" << endl;
+    cout << "Enter the course code: ";
+    int courseCode;
+    cin >> courseCode;
+
+    bool isDone = false;
+
+    for (int i = 0; i < professor.getCourseNums(); i++)
+    {
+        if (professor.getCourses().at(i).getCourseCode() == courseCode)
+        {
+
+            cout << "Enter the exam name: ";
+            string examName;
+            cin >> examName;
+
+            cout << "How many problems do you want to add? ";
+            int problemNums;
+            cin >> problemNums;
+
+            // Problem *problems = new Problem[problemNums];
+            vector<Problem> problems;
+            for (int j = 0; j < problemNums; j++)
+            {
+                cout << "======== Problem " << j + 1 << " ========" << endl;
+                problems.at(j) = getAProblem();
+            }
+
+            // Exam *exams = new Exam[professor.getCourses()[i].getExamNums() + 1];
+            // for (int j = 0; j < professor.getCourses()[i].getExamNums(); j++)
+            // {
+            //     exams[j] = professor.getCourses()[i].getExams()[j];
+            // }
+            // exams[professor.getCourses()[i].getExamNums()] = Exam(examName, _getNewExamCode());
+            // professor.getCourses()[i].setExams(exams);
+            // professor.getCourses()[i].setExamNums(professor.getCourses()[i].getExamNums() + 1);
+            cout << "Exam added successfully ✅" << endl;
+            Exam exam(examName, problems, problemNums);
+            professor.getCourses()[i].setExams(exam);
+            return;
+        }
+    }
+    if (!isDone)
+        cout << "Course not found ❌" << endl;
+}
+
+Problem getAProblem()
+{
+    string choice;
+
+    while (true)
+    {
+        CLEAR_SCREEN();
+        cout << "Choose a problem type:" << endl;
+        cout << "1. Multiple Choice 1️⃣ 2️⃣ 3️⃣ 4️⃣" << endl;
+        cout << "2. True or False ✅ ❌" << endl;
+        cout << "3. Fill in the blank ✏" << endl;
+        cout << "4. Long Answer 📄" << endl;
+        cin >> choice;
+        if (choice == "1")
+            return _getMultipleChoice();
+
+        else if (choice == "2")
+            return _getTrueFalse();
+
+        else if (choice == "3")
+            return _getFillInTheBlank();
+
+        else if (choice == "4")
+            return _getLongAnswer();
+
+        else
+        {
+            cout << "Invalid choice" << endl;
+        }
+    }
+}
+Problem _getMultipleChoice()
+{
+    string question;
+    string problemType;
+    string choices[4];
+    string correctChoice;
+    cout << "Enter the question: ";
+    getline(cin, question);
+
+    cout << "Enter the problem type: ";
+    getline(cin, problemType);
+
+    cout << "Enter the choices: " << endl;
+    for (int i = 0; i < 4; i++)
+    {
+        cout << i + 1 << ". ";
+        getline(cin, choices[i]);
+    }
+
+    cout << "Enter the correct choice: ";
+    cin >> correctChoice;
+    return Problem(problemType, question, correctChoice, choices, true);
+}
+
+Problem _getTrueFalse()
+{
+    string question;
+    string problemType;
+    string correctChoice;
+    cout << "Enter the question: ";
+    getline(cin, question);
+
+    cout << "Enter the problem type: ";
+    getline(cin, problemType);
+
+    cout << "Enter the correct choice: ";
+    cin >> correctChoice;
+    return Problem(problemType, question, correctChoice, nullptr, false);
+}
+
+Problem _getFillInTheBlank()
+{
+    string question;
+    string problemType;
+    string correctChoice;
+    cout << "Enter the question: ";
+    getline(cin, question);
+
+    cout << "Enter the problem type: ";
+    getline(cin, problemType);
+
+    cout << "Enter the correct choice: ";
+    cin >> correctChoice;
+    return Problem(problemType, question, correctChoice, nullptr, false);
+}
+
+Problem _getLongAnswer()
+{
+    string question;
+    string problemType;
+    string correctChoice;
+    cout << "Enter the question: ";
+    getline(cin, question);
+
+    cout << "Enter the problem type: ";
+    getline(cin, problemType);
+
+    cout << "Enter the correct choice: ";
+    getline(cin, correctChoice);
+
+    return Problem(problemType, question, correctChoice, nullptr, false);
 }
 
 int _getNewStudentId()

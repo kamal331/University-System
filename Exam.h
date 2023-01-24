@@ -1,41 +1,43 @@
 #ifndef __EXAM_H_
 #define __EXAM_H_
+#define MAX_PROBLEM_NUM 10
 
 class Exam
 {
 private:
     string mSubject;
-    Problem *mPProblems;
+    // Problem *mPProblems;
+    vector<Problem> mProblems;
     int mProblemNums;
 
 public:
-    Exam(string subject, Problem *problems, int problemNums);
+    Exam(string subject, vector<Problem> problems, int problemNums);
     Exam(); // default constructor
     string getSubject();
     string getExamName();
-    Problem *getProblems();
+    // Problem *getProblems();
+    vector<Problem> getProblems();
     int getProblemNums();
 
     void setSubject(string subject);
-    void setProblems(Problem *problems);
+    void setProblems(Problem problem);
     void setproblemNums(int problemNums);
     void printExam();
 
-    Exam *operator=(Exam *exam);
+    // Exam operator=(Exam *exam);
     // ~Exam();
 };
 
-Exam::Exam(string subject, Problem *problems, int problemNums)
+Exam::Exam(string subject, vector<Problem> problems, int problemNums)
 {
+    this->mProblems = problems;
     this->mSubject = subject;
-    this->mPProblems = problems;
     this->mProblemNums = problemNums;
 }
 
 Exam::Exam()
 {
     this->mSubject = "";
-    this->mPProblems = nullptr;
     this->mProblemNums = 0;
 }
 
@@ -49,9 +51,9 @@ string Exam::getExamName()
     return this->mSubject;
 }
 
-Problem *Exam::getProblems()
+vector<Problem> Exam::getProblems()
 {
-    return this->mPProblems;
+    return mProblems;
 }
 
 int Exam::getProblemNums()
@@ -64,9 +66,9 @@ void Exam::setSubject(string subject)
     this->mSubject = subject;
 }
 
-void Exam::setProblems(Problem *problems)
+void Exam::setProblems(Problem problem)
 {
-    this->mPProblems = problems;
+    mProblems.push_back(problem);
 }
 
 void Exam::setproblemNums(int problemNums)
@@ -82,16 +84,8 @@ void Exam::printExam()
     for (int i = 0; i < this->mProblemNums; i++)
     {
         cout << "===== ✳  Problem " << i + 1 << "✳  =====" << endl;
-        mPProblems[i].printProblem();
+        mProblems.at(i).printProblem();
     }
-}
-
-Exam *Exam::operator=(Exam *exam)
-{
-    this->mSubject = exam->mSubject;
-    this->mPProblems = exam->mPProblems;
-    this->mProblemNums = exam->mProblemNums;
-    return this;
 }
 
 // Exam::~Exam()

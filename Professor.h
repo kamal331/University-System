@@ -1,45 +1,49 @@
 #ifndef __PROFESSOR_H_
 #define __PROFESSOR_H_
-
+#define MAX_COURSE_NUM 10
 class Professor : public Person
 {
 private:
-    Course *mPCourses;
+    vector<Course> mCourses;
+    // Course *mPCourses;
     int mCourseNums;
 
 public:
     Professor(string name, string password, uint8_t *salt,
-              int id, Course *courses, int courseNums);
+              int id, int courseNums);
     Professor();
-    Course *getCourses();
+
+    vector<Course> getCourses();
     int getCourseNums();
 
-    void setCourses(Course *courses);
+    void setCourse(Course courses);
     void setCourseNums(int courseNums);
 
     void print();
 
-    Professor *operator=(Professor *professor);
+    // Professor *operator=(Professor *professor);
+    // gets a professor pointer and returns a professor
+    // Professor operator=(Professor *professor)
+    // {
+    //     this->mName = professor->getName();
+    //     this->mPassword = professor->getPassword();
+    //     this->mPSalt = professor->getSalt();
+    //     this->mId = professor->getId();
+    //     vector<Course> mCourses = professor->getCourses();
+    //     this->mCourseNums = professor->getCourseNums();
+    //     return *this;
+    // }
     // ~Professor();
 };
 
 Professor::Professor(string name, string password, uint8_t *salt,
-                     int id, Course *courses,
-                     int courseNums) : Person(name, password, salt, id)
+                     int id, int courseNums) : Person(name, password, salt, id)
 {
-    this->mPCourses = courses;
     this->mCourseNums = courseNums;
 }
 
-Professor::Professor() : Person()
+Professor::Professor() : Person(), mCourseNums(0)
 {
-    this->mPCourses = nullptr;
-    this->mCourseNums = 0;
-}
-
-Course *Professor::getCourses()
-{
-    return this->mPCourses;
 }
 
 int Professor::getCourseNums()
@@ -47,9 +51,14 @@ int Professor::getCourseNums()
     return this->mCourseNums;
 }
 
-void Professor::setCourses(Course *courses)
+vector<Course> Professor::getCourses()
 {
-    this->mPCourses = courses;
+    return this->mCourses;
+}
+
+void Professor::setCourse(Course courses)
+{
+    mCourses.push_back(courses);
 }
 
 void Professor::setCourseNums(int courseNums)
@@ -63,19 +72,24 @@ void Professor::print()
     cout << "ID: " << this->getId() << endl;
     cout << "Course Num: " << this->getCourseNums() << endl;
     for (int i = 0; i < this->getCourseNums(); i++)
+    {
         cout << "Course " << i << " Name: " << this->getCourses()[i].getCourseName() << endl;
+        cout << "Exam Num: " << this->getCourses()[i].getExamNums() << endl;
+        for (int j = 0; j < this->getCourses()[i].getExamNums(); j++)
+            cout << "Exam " << j << " Name: " << this->getCourses()[i].getExams()[j].getExamName() << endl;
+    }
 }
 
-Professor *Professor::operator=(Professor *professor)
-{
-    this->setName(professor->getName());
-    this->setPassword(professor->getPassword());
-    this->setSalt(professor->getSalt());
-    this->setId(professor->getId());
-    this->setCourses(professor->getCourses());
-    this->setCourseNums(professor->getCourseNums());
-    return this;
-}
+// Professor *Professor::operator=(Professor *professor)
+// {
+//     this->setName(professor->getName());
+//     this->setPassword(professor->getPassword());
+//     this->setSalt(professor->getSalt());
+//     this->setId(professor->getId());
+//     this->setCourses(professor->getCourses());
+//     this->setCourseNums(professor->getCourseNums());
+//     return this;
+// }
 
 // Professor::~Professor()
 // {

@@ -1,48 +1,6 @@
 #ifndef __ADMINLOGIN_H_
 #define __ADMINLOGIN_H_
 
-void mainMenu()
-{
-    cout << "=========== 🏢  Welcome to the University 🏢  ===========" << endl;
-    string choices[5] = {"1. Login as a student 🧑‍🎓",
-                         "2. Login as a professor 🧑‍🏫",
-                         "3. Login as an admin 🧑‍💻",
-                         "4. Exit 🚪"};
-    string choice;
-    while (true)
-    {
-        CLEAR_SCREEN();
-        cout << "What would you like to do?" << endl;
-        for (string choice : choices)
-            cout << choice << endl;
-        cin >> choice;
-
-        if (choice == "1")
-        {
-            cout << "You chose to login as a student" << endl;
-            break;
-        }
-        else if (choice == "2")
-        {
-            cout << "You chose to login as a professor" << endl;
-            break;
-        }
-        else if (choice == "3")
-        {
-            adminMenu();
-        }
-        else if (choice == "4")
-        {
-            cout << "You chose to exit" << endl;
-            exit(0);
-        }
-        else
-        {
-            cout << "Invalid choice" << endl;
-        }
-    }
-}
-
 // ================== Admin Menu ==================
 
 void adminMenu()
@@ -75,25 +33,25 @@ void adminMenu()
         if (choice == "1")
         {
             addStudent();
-            gPStudents[gStudentId - 1].print();
+            gStudents.back().print();
             BACK_TO_LAST_PAGE();
         }
         else if (choice == "2")
         {
             addProfessor();
-            gPProfessors[gProfessorId - 1].print();
+            gProfessors.back().print();
             BACK_TO_LAST_PAGE();
         }
         else if (choice == "3")
         {
             addCourse();
-            gPCourses[gCourseCode - 1].print();
+            gCourses.back().print();
             BACK_TO_LAST_PAGE();
         }
         else if (choice == "4")
         {
             addTerm();
-            gPTerms[gTermCode - 1].print();
+            gTerms.back().print();
             BACK_TO_LAST_PAGE();
         }
 
@@ -124,9 +82,9 @@ bool adminLogin()
 
     for (int i = 0; i < gAdminId; i++)
     {
-        if (gPAdmins[i].getId() == id)
+        if (gAdmins.at(i).getId() == id)
         {
-            if (verifyArgon2Hash(password, gPAdmins[i].getPassword(), gPAdmins[i].getSalt()))
+            if (verifyArgon2Hash(password, gAdmins.at(i).getPassword(), gAdmins.at(i).getSalt()))
             {
                 cout << "Login successful ✅" << endl;
                 return true;
@@ -149,13 +107,15 @@ void addStudent()
     salt = randomString(32);
     int id = _getNewStudentId();
 
+    EMPTY_BUFFER();
+
     cout << "Enter student's name: ";
     cin >> name;
 
-    _getPaasword();
+    password = _getPaasword();
 
-    Student *s = new Student(name, getArgon2Hash(password, salt), salt, id, nullptr, 0);
-    gPStudents[gStudentId - 1] = s;
+    Student s(name, getArgon2Hash(password, salt), salt, id, 0);
+    gStudents.push_back(s);
     cout << "Student added successfully ✅" << endl;
 }
 
@@ -170,16 +130,20 @@ void addProfessor()
     int id = _getNewProfessorId();
 
     cout << "Enter professor's name: ";
-    cin >> name;
+    EMPTY_BUFFER();
 
-    _getPaasword();
+    getline(cin, name);
 
-    Professor *prof = new Professor(name, getArgon2Hash(password, salt), salt, id, nullptr, 0);
-    gPProfessors[gProfessorId - 1] = prof;
+    password = _getPaasword();
+
+    Professor prof(name, getArgon2Hash(password, salt), salt, id, 0);
+
+    gProfessors.push_back(prof);
+
     cout << "Professor added successfully ✅" << endl;
 }
 
-Course *addCourse()
+void addCourse()
 {
     CLEAR_SCREEN();
     string name;
@@ -222,28 +186,34 @@ Course *addCourse()
     cout << "Enter course's final exam date: ";
     cin >> *pFinalExamDate;
 
-    Exam *pExams = new Exam[MAX_EXAM_NUM];
+    vector<Exam> exams;
     int examNum = 0;
 
-    Professor *pProfessors = new Professor;
+    // Professor *pProfessor = new Professor();
+    cout << "This course is for which professor? (Enter professor's ID):" << endl;
+    int id;
+    cin >> id;
 
-    Course *course = new Course(name, code, pSyllabus, pStartDate, pEndDate,
-                                pMidTermDate, pFinalExamDate, pExams, examNum, pProfessors);
+    cout << "This course is avaliable for which term? " << endl;
+    int termCode;
+    cin >> termCode;
 
-    gPCourses[gCourseCode - 1] = course;
-    cout << "Course added successfully ✅" << endl;
+    Course course(name, code, pSyllabus, pStartDate, pEndDate,
+                  pMidTermDate, pFinalExamDate, exams, examNum, &gProfessors.at(id));
+    gCourses.push_back(course);
 
-    return course;
+    gProfessors.at(id).setCourse(course);
 }
 
-Term *addTerm()
+Term addTerm()
 {
     CLEAR_SCREEN();
     string name;
     int code = _getNewTermCode();
 
+    EMPTY_BUFFER();
     cout << "Enter term's name: ";
-    cin >> name;
+    getline(cin, name);
 
     Date *pStartDate = new Date();
     Date *pEndDate = new Date();
@@ -258,19 +228,20 @@ Term *addTerm()
     cout << "Enter term's grades deadline: ";
     cin >> *pGradesDeadLine;
 
-    cout << "How many courses do you want to add? ";
-    int courseNum;
-    cin >> courseNum;
+    // cout << "How many courses do you want to add? ";
+    // int courseNum;
+    // cin >> courseNum;
 
-    Course *pCourses = new Course[courseNum];
-    for (int i = 0; i < courseNum; i++)
-    {
-        pCourses[i] = *addCourse();
-    }
+    // Course *pCourses = new Course[courseNum];
+    // for (int i = 0; i < courseNum; i++)
+    // {
+    //     pCourses[i] = *addCourse();
+    // }
 
-    Term *term = new Term(name, code, pStartDate, pEndDate, pGradesDeadLine, pCourses, courseNum);
+    // Term *term = new Term(name, code, pStartDate, pEndDate, pGradesDeadLine, pCourses, courseNum);
+    Term term(name, code, pStartDate, pEndDate, pGradesDeadLine, 0);
 
-    gPTerms[gTermCode - 1] = term;
+    gTerms.push_back(term);
     cout << "Term added successfully ✅" << endl;
 
     return term;

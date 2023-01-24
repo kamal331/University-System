@@ -22,12 +22,13 @@
 
 string _getPaasword()
 {
+    CLEAR_SCREEN();
     string password;
     string temp;
 
     while (true)
     {
-        CLEAR_SCREEN();
+        cout << "🫣🫣🫣" << endl;
         password = getpass("Enter the password: ");
         if (_isPassStrong(password))
             return password;

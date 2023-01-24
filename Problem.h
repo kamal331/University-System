@@ -4,39 +4,46 @@
 class Problem
 {
 private:
-    string mSubject;
     string mProblemType; // it cann be "multiple choice" or "fill in the blank" or "true or false" or "short answer"
     string mProblemText;
     string mProblemAnswer;
+    string mProblemChoices[4]; // it is used for multiple choice
+
+    bool isMultipleChoice;
 
 public:
-    Problem(string subject, string problemType,
-            string problemText, string problemAnswer);
+    Problem(string problemType, string problemText,
+            string problemAnswer, string *problemChoices, bool isMultipleChoice);
     Problem(); // default constructor
-    string getSubject();
+    // string getSubject();
     string getProblemType();
     string getProblemText();
     string getProblemAnswer();
-    void setSubject(string subject);
+    string *getProblemChoices();
+
+    // void setSubject(string subject);
     void setProblemType(string problemType);
     void setProblemText(string problemText);
     void setProblemAnswer(string problemAnswer);
+    void setProblemChoices(string *problemChoices);
 
     void printProblem();
+    void printProblemChoices();
     void printProblemAnswer();
 
     bool isTrueFalseCorrect(string answer);
     bool isMultipleChoiceCorrect(string answer);
     bool isFillInTheBlankCorrect(string answer); //==== professor need to check it
     bool isShortAnswerCorrect(string answer);    //==== professor need to check it
+    // Problem *operator=(Problem *problem);
 
     // bool isCorrect(string answer);  //==== professor need to check it
 };
 
-Problem::Problem(string subject, string problemType,
-                 string problemText, string problemAnswer)
+Problem::Problem(string problemType, string problemText,
+                 string problemAnswer, string *problemChoices, bool isMultipleChoice)
 {
-    this->mSubject = subject;
+    // this->mSubject = subject;
     this->mProblemType = problemType;
     this->mProblemText = problemText;
     this->mProblemAnswer = problemAnswer;
@@ -44,16 +51,16 @@ Problem::Problem(string subject, string problemType,
 
 Problem::Problem()
 {
-    this->mSubject = "";
+    // this->mSubject = "";
     this->mProblemType = "";
     this->mProblemText = "";
     this->mProblemAnswer = "";
 }
 
-string Problem::getSubject()
-{
-    return this->mSubject;
-}
+// string Problem::getSubject()
+// {
+//     return this->mSubject;
+// }
 
 string Problem::getProblemType()
 {
@@ -65,15 +72,20 @@ string Problem::getProblemText()
     return this->mProblemText;
 }
 
+string *Problem::getProblemChoices()
+{
+    return this->mProblemChoices;
+}
+
 string Problem::getProblemAnswer()
 {
     return this->mProblemAnswer;
 }
 
-void Problem::setSubject(string subject)
-{
-    this->mSubject = subject;
-}
+// void Problem::setSubject(string subject)
+// {
+//     this->mSubject = subject;
+// }
 
 void Problem::setProblemType(string problemType)
 {
@@ -85,6 +97,14 @@ void Problem::setProblemText(string problemText)
     this->mProblemText = problemText;
 }
 
+void Problem::setProblemChoices(string *problemChoices)
+{
+    for (int i = 0; i < 4; i++)
+    {
+        this->mProblemChoices[i] = problemChoices[i];
+    }
+}
+
 void Problem::setProblemAnswer(string problemAnswer)
 {
     this->mProblemAnswer = problemAnswer;
@@ -92,10 +112,16 @@ void Problem::setProblemAnswer(string problemAnswer)
 
 void Problem::printProblem()
 {
-    cout << "▶ Subject: " << this->mSubject << endl;
+    // cout << "▶ Subject: " << this->mSubject << endl;
     cout << "▶ Problem Type: " << this->mProblemType << endl;
     cout << "▶ Problem Text:\n"
          << this->mProblemText << endl;
+}
+
+void Problem::printProblemChoices()
+{
+    for (int i = 0; i < 4; i++)
+        cout << this->mProblemChoices[i] << endl;
 }
 
 void Problem::printProblemAnswer()
