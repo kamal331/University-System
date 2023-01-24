@@ -41,6 +41,11 @@ void adminMenu();
 bool professorLogin(int &id, string &password);
 void professorMenu();
 
+void dailyMessage();
+void licensePage();
+void privacyPolicy();
+void aboutUs();
+
 void addStudent();
 void addProfessor();
 void addCourse();
@@ -208,10 +213,14 @@ int main()
 void mainMenu()
 {
     cout << "=========== 🏢  Welcome to the University 🏢  ===========" << endl;
-    string choices[5] = {"1. Login as a student 🧑‍🎓",
+    string choices[8] = {"1. Login as a student 🧑‍🎓",
                          "2. Login as a professor 🧑‍🏫",
                          "3. Login as an admin 🧑‍💻",
-                         "4. Exit 🚪"};
+                         "4. Daily Message 📩\n"
+                         "5. License 📜",
+                         "6. Privacy Policy 📝",
+                         "7. About Us 📖",
+                         "8. Exit 🚪"};
     string choice;
     while (true)
     {
@@ -235,6 +244,23 @@ void mainMenu()
             adminMenu();
         }
         else if (choice == "4")
+        {
+            dailyMessage();
+        }
+        else if (choice == "5")
+        {
+            cout << "You chose to see the license" << endl;
+            break;
+        }
+        else if (choice == "6")
+        {
+            privacyPolicy();
+        }
+        else if (choice == "7")
+        {
+            aboutUs();
+        }
+        else if (choice == "8")
         {
             cout << "You chose to exit" << endl;
             exit(0);
@@ -514,3 +540,8 @@ int _getNewTermCode()
 {
     return gTermCode++;
 }
+
+// int _getNewExamCode()
+// {
+//     return gExamCode++;
+// }
