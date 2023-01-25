@@ -123,6 +123,7 @@ void addStudent()
 
     Student s(name, getArgon2Hash(password, salt), salt, id, 0);
     gStudents.push_back(s);
+    gStudentId++;
     cout << "Student added successfully ✅" << endl;
 }
 
@@ -144,6 +145,8 @@ void addProfessor()
     password = _getPaasword();
 
     Professor prof(name, getArgon2Hash(password, salt), salt, id, 0);
+
+    gProfessorId++;
 
     gProfessors.push_back(prof);
 
@@ -210,6 +213,8 @@ void addCourse()
     gCourses.push_back(course);
 
     gProfessors.at(id).setCourse(course);
+    gProfessors.at(id).setCourseNums(gProfessors.at(id).getCourseNums() + 1);
+    gCourseCode++;
 }
 
 void setCourseToProfessor()
@@ -225,7 +230,6 @@ void setCourseToProfessor()
     cin >> code;
 
     gProfessors.at(id).setCourse(gCourses.at(code));
-    gProfessors.at(id).setCourseNums(gProfessors.at(id).getCourseNums() + 1);
     cout << "Course set successfully ✅" << endl;
 }
 
@@ -236,6 +240,15 @@ void printAllCourses()
     for (int i = 0; i < gCourses.size(); i++)
     {
         cout << i << ". " << gCourses.at(i).getCourseName() << endl;
+        cout << "Course Code: " << gCourses.at(i).getCourseCode() << endl;
+        cout << "Course Name: " << gCourses.at(i).getCourseName() << endl;
+        cout << "Course Professor: " << gCourses.at(i).getProfessor()->getName() << endl;
+        cout << "Exam numbers: " << gCourses.at(i).getExamNums() << endl;
+        for (int j = 0; j < gCourses.at(i).getExamNums(); j++)
+        {
+            cout << "Exam Name: " << gCourses.at(i).getExams().at(j).getExamName() << endl;
+        }
+        cout << "----------------------------------------" << endl;
     }
 }
 
@@ -276,6 +289,8 @@ Term addTerm()
     Term term(name, code, pStartDate, pEndDate, pGradesDeadLine, 0);
 
     gTerms.push_back(term);
+
+    gTermCode++;
     cout << "Term added successfully ✅" << endl;
 
     return term;

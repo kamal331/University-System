@@ -11,7 +11,7 @@ private:
     int mProblemNums;
 
 public:
-    Exam(string subject, vector<Problem> problems, int problemNums);
+    Exam(string subject, vector<Problem> &problems, int problemNums);
     Exam(); // default constructor
     string getSubject();
     string getExamName();
@@ -28,7 +28,7 @@ public:
     // ~Exam();
 };
 
-Exam::Exam(string subject, vector<Problem> problems, int problemNums)
+Exam::Exam(string subject, vector<Problem> &problems, int problemNums)
 {
     this->mProblems = problems;
     this->mSubject = subject;

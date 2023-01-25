@@ -32,6 +32,18 @@ void dailyMessage()
     BACK_TO_LAST_PAGE();
 }
 
+void licensePage()
+{
+    CLEAR_SCREEN();
+    cout << "================= 📝  License 📝  =================" << endl;
+    cout << "This program is licensed under:" << endl;
+    cout << "▶ CC0 1.0 Universal(CC0 1.0) Public Domain Dedication ◀" << endl;
+    cout << "You may find a copy of the license at:" << endl;
+    cout << "https://creativecommons.org/publicdomain/zero/1.0/" << endl;
+
+    BACK_TO_LAST_PAGE();
+}
+
 void privacyPolicy()
 {
     CLEAR_SCREEN();

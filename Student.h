@@ -13,7 +13,7 @@ public:
     vector<Course> &getCourses();
     int getCourseNums();
 
-    void setCourses(Course courses);
+    void setCourses(Course &courses);
     void setCourseNums(int courseNums);
 
     void print();
@@ -43,9 +43,10 @@ int Student::getCourseNums()
     return this->mCourseNums;
 }
 
-void Student::setCourses(Course courses)
+void Student::setCourses(Course &courses)
 {
     this->mCourses.push_back(courses);
+    mCourseNums++;
 }
 
 void Student::setCourseNums(int courseNums)
@@ -58,9 +59,17 @@ void Student::print()
     cout << "Name: " << this->getName() << endl;
     cout << "ID: " << this->getId() << endl;
     cout << "Course Num: " << this->getCourseNums() << endl;
-    for (int i = 0; i < this->getCourseNums(); i++)
-        cout << "Course " << i + 1 << ": "
+    for (int i = 0; i < getCourses().size(); i++)
+    {
+        cout << "Course " << i << ": "
              << this->getCourses()[i].getCourseName() << endl;
+        cout << "Exam Numbers: " << this->getCourses()[i].getExams().size() << endl;
+        for (int j = 0; j < this->getCourses()[i].getExams().size(); j++)
+        {
+            cout << "Exam " << j + 1 << ": "
+                 << this->getCourses()[i].getExams()[j].getExamName() << endl;
+        }
+    }
 }
 
 // Student *Student::operator=(Student *student)

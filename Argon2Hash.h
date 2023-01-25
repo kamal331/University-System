@@ -13,7 +13,11 @@ bool verifyArgon2Hash(string password, string hash, uint8_t *salt);
 
 string getArgon2Hash(string password, uint8_t *salt)
 {
+    /// @COPYRIGHT:
     // I used code from https://github.com/p-h-c/phc-winner-argon2
+    // Copyright 2015
+    // Daniel Dinu, Dmitry Khovratovich,
+    // Jean-Philippe Aumasson, and Samuel Neves
     uint8_t hash[HASHLEN];
 
     uint8_t *pwd = (uint8_t *)strdup(password.c_str());

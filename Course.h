@@ -23,7 +23,8 @@ public:
     Course(string courseName, int courseCode,
            char *pCourseSyllabus, Date *courseStartDate,
            Date *courseEndDate, Date *midTermDate,
-           Date *finalExamDate, vector<Exam> mExams, int examNums, Professor *professor);
+           Date *finalExamDate, vector<Exam> &mExams,
+           int examNums, Professor *professor);
 
     Course(); // default constructor
     string getCourseName();
@@ -44,7 +45,7 @@ public:
     void setCourseEndDate(Date *courseEndDate);
     void setMidTermDate(Date *midTermDate);
     void setFinalExamDate(Date *finalExamDate);
-    void setExams(Exam exams);
+    void setExams(Exam &exams);
     void setExamNums(int examNums);
     void setProfessor(Professor *professor);
 
@@ -58,7 +59,8 @@ public:
 Course::Course(string courseName, int courseCode,
                char *pCourseSyllabus, Date *courseStartDate,
                Date *courseEndDate, Date *midTermDate,
-               Date *finalExamDate, vector<Exam> exams, int examNums, Professor *professor)
+               Date *finalExamDate, vector<Exam> &exams,
+               int examNums, Professor *professor)
 {
     this->mCourseName = courseName;
     this->mCourseCode = courseCode;
@@ -169,10 +171,9 @@ void Course::setFinalExamDate(Date *finalExamDate)
     this->mPFinalExamDate = finalExamDate;
 }
 
-void Course::setExams(Exam exams)
+void Course::setExams(Exam &exams)
 {
     mExams.push_back(exams);
-    this->mExamNums++;
 }
 
 void Course::setExamNums(int examNums)
