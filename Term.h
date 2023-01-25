@@ -2,13 +2,13 @@
 #define __TERM_H_
 #define MAX_COURSE_NUM 10
 
-/****************************************************************
- * @brief Term class which will be used for storing term data.  *
- *                                                              *
- * @param termName, termCode, termStartDate,                    *
- * @param gradesDeadline, courses, courseNums                   *
- *                                                              *
- ****************************************************************/
+/*****************************************************************
+ * \class Term                                                   *
+ * \brief Term class which will be used for storing term data.   *
+ *        Each term has a set of courses.                        *
+ * \param termName, termCode, termStartDate, termEndDate,        *
+ *       gradesDeadline, courses, courseNums                     *
+ *****************************************************************/
 
 class Term
 {

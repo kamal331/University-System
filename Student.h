@@ -2,10 +2,11 @@
 #define __STUDENT_H_
 
 /*********************************************************************
- * @brief Student class which will be used for storing student data. *
+ * \class Student                                                    *
+ * \brief Student class which will be used for storing student data. *
  *        Student can see its courses, exams.                        *
  *        Student can take exams.                                    *
- * @param courses, courseNums,                                       *
+ * \param courses, courseNums,                                       *
  *        (name, password, salt, id are inherited from Person class) *
  *********************************************************************/
 

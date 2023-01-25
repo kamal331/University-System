@@ -1,13 +1,14 @@
 #ifndef __PROBLEM_H_
 #define __PROBLEM_H_
 
-/*************************************************************************************
- * @brief A class for problem in exam. Which can be used for multiple choice,        *
- *  true/false, fill in the blank, short answer, and essay.                          *
- *                                                                                   *
- * @param problemType, problemText, problemAnswer, problemChoices, isMultipleChoice  *
- *                                                                                   *
- *************************************************************************************/
+/************************************************************************
+ * \class Problem                                                       *
+ * \brief A class for problem in exam. Which can be used for            *
+ *        multiple choice, true/false, fill in the blank, short answer. *
+ * \param problemType, problemText, problemAnswer,                      *
+ *        problemChoices, isMultipleChoice                              *
+ ***********************************************************************/
+
 class Problem
 {
 private:

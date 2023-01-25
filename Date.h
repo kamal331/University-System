@@ -1,12 +1,12 @@
 #ifndef __DATE_H_
 #define __DATE_H_
 
-/*****************************
- * @brief A class for date.  *
- *                           *
- * @param day, month, year   *
- *                           *
- ****************************/
+/*****************************************************
+ *   \class Date                                     *
+ *   \brief A class for date to store date of exams  *
+ *          in a format of day/month/year            *
+ *   \param day, month, year                         *
+ *****************************************************/
 
 class Date
 {

@@ -1,13 +1,13 @@
 #ifndef __ADMIN_H_
 #define __ADMIN_H_
 
-/************************************************************************
- * @brief A class for admin which is child class of Person.             *
- *        Admin can add, update and view student, professor and course. *
- *                                                                      *
- * @param name, password, salt, id                                      *
- *        (name, password, salt, id are inherited from Person class)    *
- ************************************************************************/
+/***********************************************************************
+ * \class Admin                                                        *
+ * \brief A class for admin which is child class of Person.            *
+ *       Admin can add, student, professor and course.                 *
+ *                                                                     *
+ * \param name, password, salt, id (are inherited from Person class)   *
+ ***********************************************************************/
 
 class Admin : public Person
 {

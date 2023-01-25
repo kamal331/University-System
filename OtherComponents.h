@@ -17,13 +17,14 @@
 #define MAX_TERM_NUM 8
 
 #define MAX_EXAM_NUM 10
+#define MAX_ANSWER_SIZE 50
 
 // ================== Other Functions ==================
 
 void dailyMessage()
 {
     CLEAR_SCREEN();
-    cout << "\t\t==================== 📝  Daily Message 📝  ====================" << endl;
+    cout << MAGENTA "\t\t==================== 📝  Daily Message 📝  ====================" RESET << endl;
     cout << "Human beings are members of a whole, in creation of one essence and soul." << endl;
     cout << "If one member is afflicted with pain, other members uneasy will remain." << endl;
     cout << "If you've no sympathy for human pain, the name of human you cannot retain." << endl

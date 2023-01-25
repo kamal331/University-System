@@ -2,12 +2,12 @@
 #define __EXAM_H_
 #define MAX_PROBLEM_NUM 10
 
-/***************************************************************
- * @brief Exam class which will be used for storing exam data. *
- *                                                             *
- * @param subject, problems, problemNums                       *
- *                                                             *
+/****************************************************************
+ * \class Exam                                                  *
+ * \brief Exam class which will be used for storing exam data.  *
+ * \param subject, problems, problemNums                        *
  ***************************************************************/
+
 class Exam
 {
 private:

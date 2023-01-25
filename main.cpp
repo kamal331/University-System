@@ -22,17 +22,28 @@
 
 using namespace std;
 
-#define LOADING_SCREEN()                                  \
-    int index = 0;                                        \
-    char loadingArr[26];                                  \
-    while (index < 25)                                    \
-    {                                                     \
-        CLEAR_SCREEN();                                   \
-        loadingArr[index++] = '#';                        \
-        loadingArr[index] = '\0';                         \
-        cout << "Loading [" << loadingArr << "]" << endl; \
-        usleep(70000);                                    \
-    }                                                     \
+// Ansi bold color codes
+#define BLACK "\033[1;30m"
+#define RED "\033[1;31m"
+#define GREEN "\033[1;32m"
+#define YELLOW "\033[1;33m"
+#define BLUE "\033[1;34m"
+#define MAGENTA "\033[1;35m"
+#define CYAN "\033[1;36m"
+#define WHITE "\033[1;37m"
+#define RESET "\033[0m"
+
+#define LOADING_SCREEN()                                                    \
+    int index = 0;                                                          \
+    char loadingArr[26];                                                    \
+    while (index < 25)                                                      \
+    {                                                                       \
+        CLEAR_SCREEN();                                                     \
+        loadingArr[index++] = '#';                                          \
+        loadingArr[index] = '\0';                                           \
+        cout << GREEN << "Loading [" << loadingArr << "]" << RESET << endl; \
+        usleep(70000);                                                      \
+    }                                                                       \
     CLEAR_SCREEN();
 
 class Date;
@@ -241,20 +252,20 @@ int main()
  */
 void mainMenu()
 {
-    cout << "=========== 🏢  Welcome to the University 🏢  ===========" << endl;
-    string choices[8] = {"1. Login as a student 🧑‍🎓",
-                         "2. Login as a professor 🧑‍🏫",
-                         "3. Login as an admin 🧑‍💻",
-                         "4. Daily Message 📩\n"
-                         "5. License 📜",
-                         "6. Privacy Policy 📝",
-                         "7. About Us 📖",
-                         "8. Exit 🚪"};
+    cout << MAGENTA << "=========== 🏢  Welcome to the University 🏢  ===========" << endl;
+    string choices[8] = {YELLOW "1. Login as a student 🧑‍🎓",
+                         GREEN "2. Login as a professor 🧑‍🏫",
+                         BLUE "3. Login as an admin 🧑‍💻",
+                         YELLOW "4. Daily Message 📩",
+                         CYAN "5. License 📜",
+                         WHITE "6. Privacy Policy 📝",
+                         GREEN "7. About Us 📖",
+                         RED "8. Exit 🚪" RESET};
     string choice;
     while (true)
     {
         CLEAR_SCREEN();
-        cout << "What would you like to do?" << endl;
+        cout << MAGENTA << "What would you like to do?" << RESET << endl;
         for (string choice : choices)
             cout << choice << endl;
         cin >> choice;
@@ -393,6 +404,27 @@ void signUpForACourse(Student &s1)
     s1.setCourses(gCourses.at(courseCode));
 
     cout << "Signed up the course successfully ✅" << endl;
+}
+
+void attendExam(Student &s1)
+{
+    CLEAR_SCREEN();
+    s1.print();
+
+    cout << "=========== 📄  Attend an Exam 📄  ===========" << endl;
+    cout << "Which Course do you want to attend? (Enter the code) " << endl;
+    int courseCode;
+    cin >> courseCode;
+
+    cout << "Which exam do you want to attend? (Enter the code) " << endl;
+    int examCode;
+    cin >> examCode;
+
+    s1.getCourses().at(courseCode).getExams().at(examCode).printExam();
+    cout << "Enter your answer: ";
+    char *answer = new char[MAX_ANSWER_SIZE];
+    EMPTY_BUFFER();
+    cin.getline(answer, MAX_ANSWER_SIZE);
 }
 
 int _getNewStudentId()

@@ -139,6 +139,7 @@ void addNewExam(Professor &professor)
             professor.getCourses().at(i).setExams(exam);
             gCourses.at(courseCode).setExams(exam);
             gCourses.at(courseCode).setExamNums(gCourses.at(courseCode).getExamNums() + 1);
+            professor.getCourses().at(i).setExamNums(professor.getCourses().at(i).getExamNums() + 1);
 
             isDone = true;
             cout << "Exam added successfully ✅" << endl;
