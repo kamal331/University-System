@@ -1,3 +1,15 @@
+
+/************************************************
+ * @file main.cpp
+ * @author Mohammad Kamal
+ * @brief This is a simulation of a university system.
+ * @version ---
+ * @date 2023-01-25
+ *
+ * @copyright Copyright (c) 2023
+ *
+ ***********************************************/
+
 #include <iostream>
 #include <string>
 #include <stdlib.h>
@@ -215,6 +227,18 @@ int main()
 }
 
 // ================= Main Menu =================
+
+/**
+ * @brief Main menu of the program
+ * - Login as a student
+ * - Login as a professor
+ * - Login as an admin
+ * - Daily Message
+ * - License
+ * - Privacy Policy
+ * - About Us
+ * - Exit
+ */
 void mainMenu()
 {
     cout << "=========== 🏢  Welcome to the University 🏢  ===========" << endl;

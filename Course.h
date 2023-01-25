@@ -4,6 +4,15 @@
 #define MAX_EXAM_NUM 10
 #define MAX_SYLLABUS_SIZE 40
 
+/*******************************************************************
+ * @brief Course class which will be used for storing course data. *
+ *        Course class has a vector of Exam objects.               *
+ *        Course class has a pointer to its professor.             *
+ *                                                                 *
+ * @param CourseName, CourseCode, CourseSyllabus, CourseStartDate, *
+ *        CourseEndDate, MidTermDate, FinalExamDate, Exams,        *
+ *        ExamNums, Professor                                      *
+ *******************************************************************/
 class Course
 {
 private:

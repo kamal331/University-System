@@ -1,5 +1,14 @@
 #ifndef __STUDENT_H_
 #define __STUDENT_H_
+
+/*********************************************************************
+ * @brief Student class which will be used for storing student data. *
+ *        Student can see its courses, exams.                        *
+ *        Student can take exams.                                    *
+ * @param courses, courseNums,                                       *
+ *        (name, password, salt, id are inherited from Person class) *
+ *********************************************************************/
+
 class Student : public Person
 {
 private:

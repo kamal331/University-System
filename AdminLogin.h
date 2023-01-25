@@ -1,3 +1,9 @@
+/************************************************************
+ * @file AdminLogin.h                                       *
+ * @brief This file contains functions to login as an admin *
+ *       and add a new student, professor, course, or term. *
+ *************************************************************/
+
 #ifndef __ADMINLOGIN_H_
 #define __ADMINLOGIN_H_
 

@@ -1,6 +1,14 @@
 #ifndef __PROFESSOR_H_
 #define __PROFESSOR_H_
 #define MAX_COURSE_NUM 10
+
+/**************************************************************************
+ * @brief Professor class which will be used for storing professor data.  *
+ *        Professor can see its courses, create exams and courses.        *
+ *                                                                        *
+ * @param courses, courseNums,                                            *
+ *        (name, password, salt, id are inherited from Person class)      *
+ **************************************************************************/
 class Professor : public Person
 {
 private:

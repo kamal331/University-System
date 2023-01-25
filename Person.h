@@ -1,6 +1,13 @@
 #ifndef __PERSON_H_
 #define __PERSON_H_
 
+/********************************************************
+ * @brief A class for person. Which is parent class for *
+ *        Admin, Professor and Student.                 *
+ *                                                      *
+ * @param name, password, salt, id                      *
+ ********************************************************/
+
 class Person
 {
 protected:

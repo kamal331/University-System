@@ -1,11 +1,15 @@
 #ifndef __DATE_H_
 #define __DATE_H_
 
+/*****************************
+ * @brief A class for date.  *
+ *                           *
+ * @param day, month, year   *
+ *                           *
+ ****************************/
+
 class Date
 {
-    /// @brief
-    /// This class is used to store a date
-    ///  in the format of year, month and day.
 private:
     int day;
     int month;

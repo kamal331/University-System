@@ -1,10 +1,17 @@
 #ifndef __PROBLEM_H_
 #define __PROBLEM_H_
 
+/*************************************************************************************
+ * @brief A class for problem in exam. Which can be used for multiple choice,        *
+ *  true/false, fill in the blank, short answer, and essay.                          *
+ *                                                                                   *
+ * @param problemType, problemText, problemAnswer, problemChoices, isMultipleChoice  *
+ *                                                                                   *
+ *************************************************************************************/
 class Problem
 {
 private:
-    string mProblemType; // it cann be "multiple choice" or "fill in the blank" or "true or false" or "short answer"
+    string mProblemType;
     string mProblemText;
     string mProblemAnswer;
     string mProblemChoices[4]; // it is used for multiple choice

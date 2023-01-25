@@ -1,3 +1,15 @@
+/*********************************************************************
+ * @file Argon2Hash.h                                                *
+ * @copyright:                                                       *
+ * I used code from https://github.com/p-h-c/phc-winner-argon2       *
+ * Copyright (c) 2015                                                *
+ * Daniel Dinu, Dmitry Khovratovich,                                 *
+ * Jean-Philippe Aumasson, and Samuel Neves                          *
+ *                                                                   *
+ * @brief This file contains functions to hash and verify passwords  *
+ * @date 2023-01-25                                                  *
+ *********************************************************************/
+
 #ifndef __ARGON2HASH_H_
 #define __ARGON2HASH_H_
 using namespace std;
@@ -13,11 +25,7 @@ bool verifyArgon2Hash(string password, string hash, uint8_t *salt);
 
 string getArgon2Hash(string password, uint8_t *salt)
 {
-    /// @COPYRIGHT:
-    // I used code from https://github.com/p-h-c/phc-winner-argon2
-    // Copyright 2015
-    // Daniel Dinu, Dmitry Khovratovich,
-    // Jean-Philippe Aumasson, and Samuel Neves
+
     uint8_t hash[HASHLEN];
 
     uint8_t *pwd = (uint8_t *)strdup(password.c_str());

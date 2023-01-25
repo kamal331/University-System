@@ -1,3 +1,14 @@
+/***********************************************************************
+ * @file ProfessorLogin.h                                              *
+ * @author Mohammad Kamal                                              *
+ * @brief This file contains functions to login as a professor,        *
+ *        add a new exam, and view the professor's courses and exams.  *
+ * @version 0.9                                                        *
+ * @date 2023-01-25                                                    *
+ * @copyright Copyright (c) 2023                                       *
+ *                                                                     *
+ ***********************************************************************/
+
 #ifndef __PROFESSORLOGIN_H_
 #define __PROFESSORLOGIN_H_
 extern int gProfessorId;
