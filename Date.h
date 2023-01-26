@@ -30,7 +30,6 @@ public:
     void printDate();
 
     Date *operator=(Date *date);
-    // overloading operator for input and output
     friend ostream &operator<<(ostream &output, const Date &date);
     friend istream &operator>>(istream &input, Date &date);
 };

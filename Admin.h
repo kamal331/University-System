@@ -16,8 +16,6 @@ public:
     Admin(string name, string password, uint8_t *salt,
           int id);
     void print();
-
-    // Admin *operator=(Admin *admin);
 };
 
 Admin::Admin() : Person()
@@ -34,14 +32,5 @@ void Admin::print()
     cout << MAGENTA "Admin name: " RESET << this->getName() << endl;
     cout << BLUE "Admin id: " RESET << this->getId() << endl;
 }
-
-// Admin *Admin::operator=(Admin *admin)
-// {
-//     this->setName(admin->getName());
-//     this->setPassword(admin->getPassword());
-//     this->setSalt(admin->getSalt());
-//     this->setId(admin->getId());
-//     return this;
-// }
 
 #endif

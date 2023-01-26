@@ -14,7 +14,6 @@ class Professor : public Person
 {
 private:
     vector<Course> mCourses;
-    // Course *mPCourses;
     int mCourseNums;
 
 public:
@@ -29,20 +28,6 @@ public:
     void setCourseNums(int courseNums);
 
     void print();
-
-    // Professor *operator=(Professor *professor);
-    // gets a professor pointer and returns a professor
-    // Professor operator=(Professor *professor)
-    // {
-    //     this->mName = professor->getName();
-    //     this->mPassword = professor->getPassword();
-    //     this->mPSalt = professor->getSalt();
-    //     this->mId = professor->getId();
-    //     vector<Course> mCourses = professor->getCourses();
-    //     this->mCourseNums = professor->getCourseNums();
-    //     return *this;
-    // }
-    // ~Professor();
 };
 
 Professor::Professor(string name, string password, uint8_t *salt,
@@ -90,21 +75,5 @@ void Professor::print()
                  << "Name: " << this->getCourses()[i].getExams()[j].getExamName() << endl;
     }
 }
-
-// Professor *Professor::operator=(Professor *professor)
-// {
-//     this->setName(professor->getName());
-//     this->setPassword(professor->getPassword());
-//     this->setSalt(professor->getSalt());
-//     this->setId(professor->getId());
-//     this->setCourses(professor->getCourses());
-//     this->setCourseNums(professor->getCourseNums());
-//     return this;
-// }
-
-// Professor::~Professor()
-// {
-//     delete[] this->courses;
-// }
 
 #endif // __PROFESSOR_H_

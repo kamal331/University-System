@@ -20,7 +20,6 @@ private:
     string mCourseName;
     int mCourseCode;
     char *mPCourseSyllabus;
-    // char[] mCourseSyllabus;
     Date *mPCourseStartDate;
     Date *mPCourseEndDate;
     Date *mPMidTermDate;
@@ -37,6 +36,7 @@ public:
            int examNums, Professor *professor);
 
     Course(); // default constructor
+
     string getCourseName();
     int getCourseCode();
     char *getCourseSyllabus();
@@ -60,10 +60,6 @@ public:
     void setProfessor(Professor *professor);
 
     void print();
-
-    // operator overloading for = gets a course* and assigns it to another course*:
-    // Course operator=(Course *course);
-    // ~Course();
 };
 
 Course::Course(string courseName, int courseCode,
@@ -201,8 +197,6 @@ void Course::print()
     cout << BLUE "Course Name: " RESET << this->mCourseName << endl;
     cout << BLUE "Course Code: " RESET << this->mCourseCode << endl;
 
-    /// @bug @ERROR: invalid use of incomplete type 'class Professor'
-    // cout << "Course Proffesor: " << this->professor->getName() << endl;
     cout << BLUE "Course Syllabus: " RESET;
     for (int i = 0; mPCourseSyllabus[i] != '\0'; i++)
     {
@@ -226,36 +220,5 @@ void Course::print()
         this->mExams.at(i).printExam();
     }
 }
-
-// Course Course::operator=(Course *course)
-// {
-//     cout << "operator= called" << endl;
-//     setCourseName(course->getCourseName());
-//     cout << "111111111111" << endl;
-//     mCourseCode = course->getCourseCode();
-//     cout << "222222222222" << endl;
-//     mPCourseSyllabus = course->getCourseSyllabus();
-//     cout << "333333333333" << endl;
-//     mPCourseStartDate = course->getCourseStartDate();
-//     cout << "444444444444" << endl;
-//     mPCourseEndDate = course->getCourseEndDate();
-//     cout << "555555555555" << endl;
-//     mPMidTermDate = course->getMidTermDate();
-//     cout << "666666666666" << endl;
-//     mPFinalExamDate = course->getFinalExamDate();
-//     cout << "777777777777" << endl;
-//     mPExams = course->getExams();
-//     cout << "888888888888" << endl;
-//     mExamNums = course->getExamNums();
-//     cout << "999999999999" << endl;
-//     mPProfessor = course->getProfessor();
-//     cout << "000000000000" << endl;
-//     return *this;
-// }
-
-// Course::~Course()
-// {
-//     delete[] this->exams;
-// }
 
 #endif

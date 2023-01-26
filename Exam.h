@@ -12,7 +12,6 @@ class Exam
 {
 private:
     string mSubject;
-    // Problem *mPProblems;
     vector<Problem> mProblems;
     int mProblemNums;
     double mScore;
@@ -20,9 +19,9 @@ private:
 public:
     Exam(string subject, vector<Problem> &problems, int problemNums);
     Exam(); // default constructor
+
     string getSubject();
     string getExamName();
-    // Problem *getProblems();
     vector<Problem> &getProblems();
     int getProblemNums();
     double getScore();
@@ -33,9 +32,6 @@ public:
     void setScore(double score);
 
     void printExam();
-
-    // Exam operator=(Exam *exam);
-    // ~Exam();
 };
 
 Exam::Exam(string subject, vector<Problem> &problems, int problemNums)
@@ -107,10 +103,5 @@ void Exam::printExam()
         mProblems.at(i).printProblem();
     }
 }
-
-// Exam::~Exam()
-// {
-//     delete[] problems;
-// }
 
 #endif

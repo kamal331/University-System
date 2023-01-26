@@ -19,7 +19,9 @@ void adminMenu()
         if (choice == "n")
             return;
     }
-    cout << MAGENTA "===========" RESET "🧑‍💻" MAGENTA "  Welcome to the Admin Menu" RESET " 🧑‍💻" MAGENTA "===========" RESET << endl;
+    cout << MAGENTA "===========" RESET "🧑‍💻" MAGENTA
+                    "  Welcome to the Admin Menu" RESET " 🧑‍💻" MAGENTA "===========" RESET
+         << endl;
     string choices[7] = {GREEN "1. Add a student 🧑‍🎓" RESET,
                          YELLOW "2. Add a professor 🧑‍🏫" RESET,
                          BLUE "3. Add a course 📚" RESET,
@@ -204,7 +206,6 @@ void addCourse()
     vector<Exam> exams;
     int examNum = 0;
 
-    // Professor *pProfessor = new Professor();
     cout << BLUE "This course is for which professor? (Enter professor's ID):" RESET << endl;
     int id;
     cin >> id;
@@ -279,17 +280,6 @@ Term addTerm()
     cout << BLUE "Enter term's grades deadline: " RESET;
     cin >> *pGradesDeadLine;
 
-    // cout << "How many courses do you want to add? ";
-    // int courseNum;
-    // cin >> courseNum;
-
-    // Course *pCourses = new Course[courseNum];
-    // for (int i = 0; i < courseNum; i++)
-    // {
-    //     pCourses[i] = *addCourse();
-    // }
-
-    // Term *term = new Term(name, code, pStartDate, pEndDate, pGradesDeadLine, pCourses, courseNum);
     Term term(name, code, pStartDate, pEndDate, pGradesDeadLine, 0);
 
     gTerms.push_back(term);

@@ -30,9 +30,6 @@ public:
     void setScore(double score);
 
     void print();
-
-    // Student *operator=(Student *student);
-    // ~Student();
 };
 
 Student::Student(string name, string password, uint8_t *salt,
@@ -99,21 +96,5 @@ void Student::print()
     }
     cout << YELLOW "Score: " RESET << this->getScore() << endl;
 }
-
-// Student *Student::operator=(Student *student)
-// {
-//     this->setName(student->getName());
-//     this->setPassword(student->getPassword());
-//     this->setSalt(student->getSalt());
-//     this->setId(student->getId());
-//     this->setCourses(student->getCourses());
-//     this->setCourseNums(student->getCourseNums());
-//     return this;
-// }
-
-// Student::~Student()
-// {
-//     delete[] this->courses;
-// }
 
 #endif

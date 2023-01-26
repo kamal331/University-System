@@ -18,7 +18,6 @@ private:
     Date *mPTermStartDate;
     Date *mPTermEndDate;
     Date *mPGradesDeadline;
-    // Course *mPCourses;
     vector<Course> mCourses;
     int mCourseNums;
 
@@ -27,6 +26,7 @@ public:
          Date *termStartDate, Date *termEndDate,
          Date *gradesDeadline, int courseNums);
     Term(); // default constructor
+
     string getTermName();
     int getTermCode();
     Date *getTermStartDate();
@@ -43,9 +43,6 @@ public:
     void setCourse(Course &courses);
     void setCourseNums(int courseNums);
     void print();
-
-    // Term operator=(Term *term);
-    // ~Term();
 };
 
 Term::Term(string termName, int termCode, Date *termStartDate,
@@ -154,22 +151,5 @@ void Term::print()
         this->mCourses.at(i).print();
     }
 }
-
-// Term Term::operator=(Term *term)
-// {
-//     this->mTermName = term->mTermName;
-//     this->mTermCode = term->mTermCode;
-//     this->mPTermStartDate = term->mPTermStartDate;
-//     this->mPTermEndDate = term->mPTermEndDate;
-//     this->mPGradesDeadline = term->mPGradesDeadline;
-//     this->mPCourses = term->mPCourses;
-//     this->mCourseNums = term->mCourseNums;
-//     return *this;
-// }
-
-// Term::~Term()
-// {
-//     delete[] this->courses;
-// }
 
 #endif

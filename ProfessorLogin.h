@@ -121,21 +121,12 @@ void addNewExam(Professor &professor)
             int problemNums;
             cin >> problemNums;
 
-            // Problem *problems = new Problem[problemNums];
             vector<Problem> problems;
             for (int j = 0; j < problemNums; j++)
             {
                 cout << YELLOW "======== Problem " << j + 1 << " ========" RESET << endl;
                 problems.push_back(getAProblem());
             }
-
-            // Exam *exams = new Exam[professor.getCourses()[i].getExamNums() + 1];
-            // for (int j = 0; j < professor.getCourses()[i].getExamNums(); j++)
-            // {
-            //     exams[j] = professor.getCourses()[i].getExams()[j];
-            // }
-            // exams[professor.getCourses()[i].getExamNums()] = Exam(examName, _getNewExamCode());
-            // professor.getCourses()[i].setExams(exams);
 
             Exam exam(examName, problems, problemNums);
             professor.getCourses().at(i).setExams(exam);
@@ -187,7 +178,6 @@ Problem &_getMultipleChoice()
 {
     string question;
     string problemType;
-    // string choices[4];
     vector<string> choices;
     string correctChoice;
     string str;
