@@ -33,17 +33,18 @@ using namespace std;
 #define WHITE "\033[1;37m"
 #define RESET "\033[0m"
 
-#define LOADING_SCREEN()                                                    \
-    int index = 0;                                                          \
-    char loadingArr[26];                                                    \
-    while (index < 25)                                                      \
-    {                                                                       \
-        CLEAR_SCREEN();                                                     \
-        loadingArr[index++] = '#';                                          \
-        loadingArr[index] = '\0';                                           \
-        cout << GREEN << "Loading [" << loadingArr << "]" << RESET << endl; \
-        usleep(70000);                                                      \
-    }                                                                       \
+#define LOADING_BAR()                                         \
+    for (int i = 0; i <= 100; ++i)                            \
+    {                                                         \
+        CLEAR_SCREEN();                                       \
+        cout << GREEN "\n\n\n\n\n\n\n\n\n\t\t\t\tLoading: ["; \
+        for (int j = 0; j < i / 10; ++j)                      \
+            cout << "██";                                     \
+        for (int j = 0; j < 10 - i / 10; ++j)                 \
+            cout << "  ";                                     \
+        cout << "] " << i << "%" RESET << endl;               \
+        usleep(30000);                                        \
+    }                                                         \
     CLEAR_SCREEN();
 
 class Date;
@@ -80,17 +81,18 @@ void addNewExam(Professor &professor);
 bool studentLogin(int &id, string &password);
 void studentMenu();
 void signUpForACourse(Student &s1);
+void attendExam(Student &s1);
 
 int _getNewStudentId();
 int _getNewProfessorId();
 int _getNewCourseCode();
 int _getNewTermCode();
 
-Problem getAProblem();
-Problem _getMultipleChoice();
-Problem _getTrueFalse();
-Problem _getFillInTheBlank();
-Problem _getLongAnswer();
+Problem &getAProblem();
+Problem &_getMultipleChoice();
+Problem &_getTrueFalse();
+Problem &_getFillInTheBlank();
+Problem &_getLongAnswer();
 
 void printAllCourses();
 
@@ -224,7 +226,7 @@ int main()
 
     // ================== Admin test ==================
 
-    LOADING_SCREEN();
+    LOADING_BAR();
 
     uint8_t *salt = randomString(32);
 
@@ -253,13 +255,13 @@ int main()
 void mainMenu()
 {
     cout << MAGENTA << "=========== 🏢  Welcome to the University 🏢  ===========" << endl;
-    string choices[8] = {YELLOW "1. Login as a student 🧑‍🎓",
-                         GREEN "2. Login as a professor 🧑‍🏫",
-                         BLUE "3. Login as an admin 🧑‍💻",
-                         YELLOW "4. Daily Message 📩",
-                         CYAN "5. License 📜",
-                         WHITE "6. Privacy Policy 📝",
-                         GREEN "7. About Us 📖",
+    string choices[8] = {YELLOW "1. Login as a student 🧑‍🎓" RESET,
+                         GREEN "2. Login as a professor 🧑‍🏫" RESET,
+                         BLUE "3. Login as an admin 🧑‍💻" RESET,
+                         YELLOW "4. Daily Message 📩" RESET,
+                         CYAN "5. License 📜" RESET,
+                         WHITE "6. Privacy Policy 📝" RESET,
+                         GREEN "7. About Us 📖" RESET,
                          RED "8. Exit 🚪" RESET};
     string choice;
     while (true)
@@ -300,12 +302,11 @@ void mainMenu()
         }
         else if (choice == "8")
         {
-            cout << "You chose to exit" << endl;
             exit(0);
         }
         else
         {
-            cout << "Invalid choice" << endl;
+            cout << RED "Invalid choice" RESET << endl;
         }
     }
 }
@@ -318,28 +319,31 @@ void studentMenu()
     while (true)
     {
         CLEAR_SCREEN();
-        cout << "Enter your ID: ";
+        cout << BLUE "Enter your ID: " RESET;
         cin >> id;
+
+        cout << BLUE;
         password = getpass("Enter your password: ");
+        cout << RESET;
         if (studentLogin(id, password))
             break;
-        cout << "Try again? (y/n)" << endl;
+        cout << RED "Try again? (y/n)" RESET << endl;
         string choice;
         cin >> choice;
         if (choice == "n")
             return;
     }
 
-    cout << "=========== 🧑‍🎓  Welcome to the Student Menu 🧑‍🎓  ===========" << endl;
-    string choices[4] = {"1. View Courses and exams 📚",
-                         "2. signup for a course 📝",
-                         "3. Do a Exam 📄",
-                         "4. Logout 🚪"};
+    cout << MAGENTA "=========== 🧑‍🎓  Welcome to the Student Menu 🧑‍🎓  ===========" RESET << endl;
+    string choices[4] = {GREEN "1. View Courses and exams 📚" RESET,
+                         BLUE "2. signup for a course 📝" RESET,
+                         YELLOW "3. Do a Exam 📄" RESET,
+                         RED "4. Logout 🚪" RESET};
     string choice;
     while (true)
     {
         CLEAR_SCREEN();
-        cout << "What would you like to do?" << endl;
+        cout << MAGENTA "What would you like to do?" RESET << endl;
         for (string choice : choices)
             cout << choice << endl;
         cin >> choice;
@@ -356,8 +360,7 @@ void studentMenu()
         }
         else if (choice == "3")
         {
-            // doExam();
-            break;
+            attendExam(gStudents.at(id));
         }
         else if (choice == "4")
         {
@@ -365,7 +368,7 @@ void studentMenu()
         }
         else
         {
-            cout << "Invalid choice" << endl;
+            cout << RED "Invalid choice" RESET << endl;
         }
     }
 }
@@ -380,14 +383,14 @@ bool studentLogin(int &id, string &password)
         {
             if (verifyArgon2Hash(password, gStudents.at(i).getPassword(), gStudents.at(i).getSalt()))
             {
-                cout << "Login successful ✅" << endl;
+                cout << GREEN "Login successful ✅" RESET << endl;
                 return true;
             }
             else
-                cout << "Wrong password ❌" << endl;
+                cout << RED "Wrong password ❌" RESET << endl;
         }
     }
-    cout << "Login Failed!" << endl;
+    cout << RED "Login Failed!" RESET << endl;
     return false;
 }
 
@@ -396,14 +399,14 @@ void signUpForACourse(Student &s1)
     CLEAR_SCREEN();
     printAllCourses();
     cout << endl
-         << "Which course do you want to signup for?" << endl;
-    cout << "=========== 📝  Signup for a course 📝  ===========" << endl;
-    cout << "Enter the course code: ";
+         << MAGENTA "Which course do you want to signup for?" RESET << endl;
+    cout << WHITE "=========== 📝  Signup for a course 📝  ===========" RESET << endl;
+    cout << BLUE "Enter the course code: " RESET;
     int courseCode;
     cin >> courseCode;
     s1.setCourses(gCourses.at(courseCode));
 
-    cout << "Signed up the course successfully ✅" << endl;
+    cout << GREEN "Signed up the course successfully ✅" RESET << endl;
 }
 
 void attendExam(Student &s1)
@@ -411,20 +414,60 @@ void attendExam(Student &s1)
     CLEAR_SCREEN();
     s1.print();
 
-    cout << "=========== 📄  Attend an Exam 📄  ===========" << endl;
-    cout << "Which Course do you want to attend? (Enter the code) " << endl;
+    cout << MAGENTA "=========== 📄  Attend an Exam 📄  ===========" RESET << endl;
+    cout << BLUE "Which Course do you want to attend? (Enter the code) " RESET << endl;
     int courseCode;
     cin >> courseCode;
 
-    cout << "Which exam do you want to attend? (Enter the code) " << endl;
+    cout << BLUE "Which exam do you want to attend? (Enter the code) " RESET << endl;
     int examCode;
     cin >> examCode;
 
-    s1.getCourses().at(courseCode).getExams().at(examCode).printExam();
-    cout << "Enter your answer: ";
-    char *answer = new char[MAX_ANSWER_SIZE];
-    EMPTY_BUFFER();
-    cin.getline(answer, MAX_ANSWER_SIZE);
+    double score = 100.0 / s1.getCourses().at(courseCode).getExams().at(examCode).getProblemNums();
+    double totalScore = 0;
+
+    bool isFirstTime = true;
+
+    for (int i = 0; i < s1.getCourses().at(courseCode).getExams().at(examCode).getProblemNums(); i++)
+    {
+        s1.getCourses().at(courseCode).getExams().at(examCode).getProblems().at(i).printProblem();
+        cout << BLUE "Enter your answer: " RESET;
+        char *answer = new char[MAX_ANSWER_SIZE];
+        if (isFirstTime)
+        {
+            EMPTY_BUFFER();
+            isFirstTime = false;
+        }
+
+        cin.getline(answer, MAX_ANSWER_SIZE);
+        if (s1.getCourses().at(courseCode).getExams().at(examCode).getProblems().at(i).getProblemAnswer() == answer)
+        {
+            totalScore += score;
+            cout << GREEN "Correct answer ✅" RESET << endl
+                 << endl;
+        }
+        else
+        {
+            cout << RED "Wrong answer ❌" RESET << endl
+                 << endl;
+        }
+    }
+    if (totalScore == 100)
+    {
+        cout << GREEN "You got 100% ✅" RESET << endl;
+        system("vlc goodJob.ogg --run-time 17 --stop-time=17 vlc://quit");
+    }
+    else
+        cout << RED "You got " << totalScore << "% ❌" RESET << endl;
+
+    CLEAR_SCREEN();
+    BACK_TO_LAST_PAGE();
+
+    // s1.getCourses().at(courseCode).getExams().at(examCode).printExam();
+    // cout << BLUE "Enter your answer: " RESET;
+    // char *answer = new char[MAX_ANSWER_SIZE];
+    // EMPTY_BUFFER();
+    // cin.getline(answer, MAX_ANSWER_SIZE);
 }
 
 int _getNewStudentId()

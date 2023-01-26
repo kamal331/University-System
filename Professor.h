@@ -77,14 +77,14 @@ void Professor::setCourseNums(int courseNums)
 
 void Professor::print()
 {
-    cout << "+ Name: " << this->getName() << endl;
-    cout << "+ ID: " << this->getId() << endl;
-    cout << "+ Course Numbers: " << this->getCourseNums() << endl;
+    cout << MAGENTA "+ Name: " RESET << this->getName() << endl;
+    cout << CYAN "+ ID: " RESET << this->getId() << endl;
+    cout << YELLOW "+ Course Numbers: " RESET << this->getCourseNums() << endl;
     for (int i = 0; i < this->getCourseNums(); i++)
     {
-        cout << "Course " << i << ": "
+        cout << BLUE "Course " << i << ": " RESET
              << " Name: " << this->getCourses()[i].getCourseName() << endl;
-        cout << "Exam Numbers: " << this->getCourses()[i].getExamNums() << endl;
+        cout << WHITE "Exam Numbers: " RESET << this->getCourses()[i].getExamNums() << endl;
         for (int j = 0; j < this->getCourses()[i].getExamNums(); j++)
             cout << "Exam " << j << " => "
                  << "Name: " << this->getCourses()[i].getExams()[j].getExamName() << endl;

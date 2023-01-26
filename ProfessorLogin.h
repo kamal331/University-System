@@ -23,12 +23,14 @@ void professorMenu()
     while (true)
     {
         CLEAR_SCREEN();
-        cout << "Enter your ID: ";
+        cout << BLUE "Enter your ID: " RESET;
         cin >> id;
+        cout << BLUE;
         password = getpass("Enter your password: ");
+        cout << RESET;
         if (professorLogin(id, password))
             break;
-        cout << "Try again? (y/n)" << endl;
+        cout << RED "Try again? (y/n)" RESET << endl;
         string choice;
         cin >> choice;
         if (choice == "n")
@@ -36,15 +38,15 @@ void professorMenu()
     }
 
     cout << "=========== 🧑‍🏫  Welcome to the Professor Menu 🧑‍🏫  ===========" << endl;
-    string choices[4] = {"1. View your courses and exams 📚 📝",
-                         "2. Add a new exam \U0000002b",
-                         "3. Back to last page 🔙",
-                         "4. Exit 🚪"};
+    string choices[4] = {GREEN "1. View your courses and exams 📚 📝" RESET,
+                         BLUE "2. Add a new exam \U0000002b" RESET,
+                         YELLOW "3. Back to last page 🔙" RESET,
+                         RED "4. Exit 🚪" RESET};
     string choice;
     while (true)
     {
         CLEAR_SCREEN();
-        cout << "What would you like to do?" << endl;
+        cout << MAGENTA "What would you like to do?" RESET << endl;
         for (string choice : choices)
             cout << choice << endl;
         cin >> choice;
@@ -68,7 +70,7 @@ void professorMenu()
         }
         else
         {
-            cout << "Invalid choice" << endl;
+            cout << RED "Invalid choice" RESET << endl;
         }
     }
 }
@@ -83,22 +85,22 @@ bool professorLogin(int &id, string &password)
         {
             if (verifyArgon2Hash(password, gProfessors.at(i).getPassword(), gProfessors.at(i).getSalt()))
             {
-                cout << "Login successful ✅" << endl;
+                cout << GREEN "Login successful ✅" RESET << endl;
                 return true;
             }
             else
-                cout << "Wrong password ❌" << endl;
+                cout << RED "Wrong password ❌" RESET << endl;
         }
     }
-    cout << "Login Failed!" << endl;
+    cout << RED "Login Failed!" RESET << endl;
     return false;
 }
 
 void addNewExam(Professor &professor)
 {
     CLEAR_SCREEN();
-    cout << "=========== 📝  Add a new exam 📝  ===========" << endl;
-    cout << "Enter the course code: ";
+    cout << MAGENTA "=========== 📝  Add a new exam 📝  ===========" RESET << endl;
+    cout << BLUE "Enter the course code: " RESET;
     int courseCode;
     cin >> courseCode;
 
@@ -109,13 +111,13 @@ void addNewExam(Professor &professor)
         cout << "=========" << endl;
         if (professor.getCourses().at(i).getCourseCode() == courseCode)
         {
-            cout << "Course found ✅" << endl;
+            cout << GREEN "Course found ✅" RESET << endl;
 
-            cout << "Enter the exam name: ";
+            cout << BLUE "Enter the exam name: " RESET;
             string examName;
             cin >> examName;
 
-            cout << "How many problems do you want to add? ";
+            cout << BLUE "How many problems do you want to add? " RESET;
             int problemNums;
             cin >> problemNums;
 
@@ -123,7 +125,7 @@ void addNewExam(Professor &professor)
             vector<Problem> problems;
             for (int j = 0; j < problemNums; j++)
             {
-                cout << "======== Problem " << j + 1 << " ========" << endl;
+                cout << YELLOW "======== Problem " << j + 1 << " ========" RESET << endl;
                 problems.push_back(getAProblem());
             }
 
@@ -142,26 +144,26 @@ void addNewExam(Professor &professor)
             professor.getCourses().at(i).setExamNums(professor.getCourses().at(i).getExamNums() + 1);
 
             isDone = true;
-            cout << "Exam added successfully ✅" << endl;
+            cout << GREEN "Exam added successfully ✅" RESET << endl;
             return;
         }
     }
     if (!isDone)
-        cout << "Course not found ❌" << endl;
+        cout << RED "Course not found ❌" RESET << endl;
 }
 
-Problem getAProblem()
+Problem &getAProblem()
 {
     string choice;
 
     while (true)
     {
         CLEAR_SCREEN();
-        cout << "Choose a problem type:" << endl;
-        cout << "1. Multiple Choice 1️⃣ 2️⃣ 3️⃣ 4️⃣" << endl;
-        cout << "2. True or False ✅ ❌" << endl;
-        cout << "3. Fill in the blank ✏" << endl;
-        cout << "4. Long Answer 📄" << endl;
+        cout << MAGENTA "Choose a problem type:" RESET << endl;
+        cout << GREEN "1. Multiple Choice 1️⃣ 2️⃣ 3️⃣ 4️⃣" RESET << endl;
+        cout << BLUE "2. True or False ✅ ❌" RESET << endl;
+        cout << YELLOW "3. Fill in the blank ✏" RESET << endl;
+        cout << CYAN "4. Long Answer 📄" RESET << endl;
         cin >> choice;
         if (choice == "1")
             return _getMultipleChoice();
@@ -177,89 +179,99 @@ Problem getAProblem()
 
         else
         {
-            cout << "Invalid choice" << endl;
+            cout << RED "Invalid choice" RESET << endl;
         }
     }
 }
-Problem _getMultipleChoice()
+Problem &_getMultipleChoice()
 {
     string question;
     string problemType;
-    string choices[4];
+    // string choices[4];
+    vector<string> choices;
     string correctChoice;
+    string str;
 
     EMPTY_BUFFER();
-    cout << "Enter the question: ";
+    cout << BLUE "Enter the question: " RESET;
     getline(cin, question);
 
-    cout << "Enter the problem type: ";
+    cout << BLUE "Enter the problem type: " RESET;
     getline(cin, problemType);
 
-    cout << "Enter the choices: " << endl;
+    cout << BLUE "Enter the choices: " RESET << endl;
     for (int i = 0; i < 4; i++)
     {
         cout << i + 1 << ". ";
-        getline(cin, choices[i]);
+        getline(cin, str);
+        choices.push_back(str);
     }
 
-    cout << "Enter the correct choice: ";
+    cout << BLUE "Enter the correct choice: " RESET;
     cin >> correctChoice;
-    return Problem(problemType, question, correctChoice, choices, true);
+    Problem *p1 = new Problem(problemType, question, correctChoice, choices, true);
+    return *p1;
 }
 
-Problem _getTrueFalse()
+Problem &_getTrueFalse()
 {
     string question;
     string problemType;
     string correctChoice;
+    vector<string> choices;
 
     EMPTY_BUFFER();
-    cout << "Enter the question: ";
+    cout << BLUE "Enter the question: " RESET;
     getline(cin, question);
 
-    cout << "Enter the problem type: ";
+    cout << BLUE "Enter the problem type: " RESET;
     getline(cin, problemType);
 
-    cout << "Enter the correct choice: ";
+    cout << BLUE "Enter the correct choice: " RESET;
     cin >> correctChoice;
-    return Problem(problemType, question, correctChoice, nullptr, false);
+    Problem *p1 = new Problem(problemType, question, correctChoice, choices, false);
+    return *p1;
 }
 
-Problem _getFillInTheBlank()
+Problem &_getFillInTheBlank()
 {
     string question;
     string problemType;
     string correctChoice;
+    vector<string> choices;
 
     EMPTY_BUFFER();
-    cout << "Enter the question: ";
+    cout << BLUE "Enter the question: " RESET;
     getline(cin, question);
 
-    cout << "Enter the problem type: ";
+    cout << BLUE "Enter the problem type: " RESET;
     getline(cin, problemType);
 
-    cout << "Enter the correct choice: ";
+    cout << BLUE "Enter the correct choice: " RESET;
     cin >> correctChoice;
-    return Problem(problemType, question, correctChoice, nullptr, false);
+    Problem *p1 = new Problem(problemType, question, correctChoice, choices, false);
+    return *p1;
 }
 
-Problem _getLongAnswer()
+Problem &_getLongAnswer()
 {
     string question;
     string problemType;
     string correctChoice;
+    vector<string> choices;
 
     EMPTY_BUFFER();
-    cout << "Enter the question: ";
+    cout << BLUE "Enter the question: " RESET;
     getline(cin, question);
 
-    cout << "Enter the problem type: ";
+    cout << BLUE "Enter the problem type: " RESET;
     getline(cin, problemType);
 
-    cout << "Enter the correct choice: ";
+    cout << BLUE "Enter the correct choice: " RESET;
     getline(cin, correctChoice);
 
-    return Problem(problemType, question, correctChoice, nullptr, false);
+    Problem *p1 = new Problem(problemType, question, correctChoice, choices, false);
+    return *p1;
 }
 
 #endif

@@ -3,9 +3,9 @@
 
 // ================= Macros =================
 #define CLEAR_SCREEN() cout << "\033[1;1H\033[2J"
-#define BACK_TO_LAST_PAGE()                                  \
-    cout << "Press any key to back to last page..." << endl; \
-    string temp;                                             \
+#define BACK_TO_LAST_PAGE()                                                \
+    cout << MAGENTA "Press any key to back to last page..." RESET << endl; \
+    string temp;                                                           \
     cin >> temp;
 
 #define EMPTY_BUFFER() std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n')
@@ -25,9 +25,9 @@ void dailyMessage()
 {
     CLEAR_SCREEN();
     cout << MAGENTA "\t\t==================== 📝  Daily Message 📝  ====================" RESET << endl;
-    cout << "Human beings are members of a whole, in creation of one essence and soul." << endl;
+    cout << CYAN "Human beings are members of a whole, in creation of one essence and soul." << endl;
     cout << "If one member is afflicted with pain, other members uneasy will remain." << endl;
-    cout << "If you've no sympathy for human pain, the name of human you cannot retain." << endl
+    cout << "If you've no sympathy for human pain, the name of human you cannot retain." RESET << endl
          << endl;
 
     BACK_TO_LAST_PAGE();
@@ -36,11 +36,12 @@ void dailyMessage()
 void licensePage()
 {
     CLEAR_SCREEN();
-    cout << "================= 📝  License 📝  =================" << endl;
-    cout << "This program is licensed under:" << endl;
+    cout << MAGENTA "================= 📝  License 📝  =================" << RESET << endl;
+    cout << CYAN "This program is licensed under:" << endl;
     cout << "▶ CC0 1.0 Universal(CC0 1.0) Public Domain Dedication ◀" << endl;
     cout << "You may find a copy of the license at:" << endl;
-    cout << "https://creativecommons.org/publicdomain/zero/1.0/" << endl;
+    cout << "https://creativecommons.org/publicdomain/zero/1.0/" RESET << endl
+         << endl;
 
     BACK_TO_LAST_PAGE();
 }
@@ -48,21 +49,24 @@ void licensePage()
 void privacyPolicy()
 {
     CLEAR_SCREEN();
-    cout << "\t\t\t======== 🧌  Privacy Policy 🧌  ========" << endl;
-    cout << "▶ For Professor:" << endl;
-    cout << "We keep your Name, ID, Hashed Password, Courses, Exams, and Problems." << endl
+    cout << MAGENTA "\t\t\t======== 🧌  Privacy Policy 🧌  ========" RESET << endl;
+    cout << GREEN "▶ For Professor:" << endl;
+    cout << "We keep your Name, ID, Hashed Password, Courses, Exams, and Problems." RESET << endl
          << endl;
-    cout << "▶ For Student:" << endl;
-    cout << "We keep your Name, ID, Hashed Password, Courses, and Exams." << endl
+    cout << YELLOW "▶ For Student:" << endl;
+    cout << "We keep your Name, ID, Hashed Password, Courses, and Exams." RESET << endl
          << endl;
-    cout << "▶ For Admin:" << endl;
-    cout << "We keep your Name, ID and Hashed Password" << endl;
-    cout << "▶ No other information is kept." << endl
+    cout << BLUE "▶ For Admin:" << endl;
+    cout << "We keep your Name, ID and Hashed Password" RESET << endl
+         << endl;
+    cout << GREEN "▶ No other information is kept." RESET << endl
          << endl;
 
-    cout << "▶ Hashed Password is a way to store password securely." << endl;
-    cout << "I use Argon2 hashing algorithm which is"
-            "the winner of the Password Hashing Competition. ✅"
+    cout << CYAN "▶ Hashed Password is a way to store password securely." << endl;
+    cout << "We use Argon2 hashing algorithm which is"
+            "the winner of the"
+         << endl
+         << "Password Hashing Competition. (PHC 2015) ✅" RESET
          << endl
          << endl;
     BACK_TO_LAST_PAGE();
@@ -75,12 +79,12 @@ void aboutUs()
     string phoneNumber = "076-12345678";
 
     CLEAR_SCREEN();
-    cout << "\t\t\t=========== 📝  About Us 📝  ===========" << endl;
-    cout << "This is " << universityName << "." << endl;
-    cout << "Email: " << email << endl;
-    cout << "Phone Number: " << phoneNumber << endl;
+    cout << MAGENTA "\t\t\t=========== 📝  About Us 📝  ===========" RESET << endl;
+    cout << GREEN "This is " << universityName << "." RESET << endl;
+    cout << YELLOW "Email: " RESET << email << endl;
+    cout << BLUE "Phone Number: " RESET << phoneNumber << endl;
 
-    cout << "You can contact us for any help. 🙂" << endl
+    cout << GREEN "You can contact us for any help." RESET " 🙂" << endl
          << endl;
 
     BACK_TO_LAST_PAGE();
@@ -95,12 +99,18 @@ string _getPaasword()
     while (true)
     {
         cout << "🫣🫣🫣" << endl;
+        cout << MAGENTA;
         password = getpass("Enter the password: ");
+        cout << RESET;
         if (_isPassStrong(password))
             return password;
         else
         {
-            cout << "❌  Press any key to try again..." << endl;
+            cout << "❌  ";
+
+            cout << RED;
+            cout << "Press any key to try again..." << endl;
+            cout << RESET;
             cin >> temp;
         }
     }
@@ -110,27 +120,37 @@ bool _isPassStrong(string password)
 {
     if (password.length() < 12)
     {
-        cout << "❌  Password must be at least 12 characters long" << endl;
+        cout << "❌  ";
+        cout << RED;
+        cout << "Password must be at least 12 characters long" RESET << endl;
         return false;
     }
     else if (password.find_first_of("0123456789") == string::npos)
     {
-        cout << "❌  Password must contain at least one number" << endl;
+        cout << "❌  ";
+        cout << RED;
+        cout << "Password must contain at least one number" RESET << endl;
         return false;
     }
     else if (password.find_first_of("ABCDEFGHIJKLMNOPQRSTUVWXYZ") == string::npos)
     {
-        cout << "❌  Password must contain at least one uppercase letter" << endl;
+        cout << "❌  ";
+        cout << RED;
+        cout << "Password must contain at least one uppercase letter" RESET << endl;
         return false;
     }
     else if (password.find_first_of("abcdefghijklmnopqrstuvwxyz") == string::npos)
     {
-        cout << "❌  Password must contain at least one lowercase letter" << endl;
+        cout << "❌  ";
+        cout << RED;
+        cout << "Password must contain at least one lowercase letter" RESET << endl;
         return false;
     }
     else if (password.find_first_of("!@#$%^&*()_+-=") == string::npos)
     {
-        cout << "❌  Password must contain at least one special character" << endl;
+        cout << "❌  ";
+        cout << RED;
+        cout << "Password must contain at least one special character" RESET << endl;
         return false;
     }
     else

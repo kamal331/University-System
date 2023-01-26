@@ -31,8 +31,8 @@ Admin::Admin(string name, string password, uint8_t *salt,
 
 void Admin::print()
 {
-    cout << "Admin name: " << this->getName() << endl;
-    cout << "Admin id: " << this->getId() << endl;
+    cout << MAGENTA "Admin name: " RESET << this->getName() << endl;
+    cout << BLUE "Admin id: " RESET << this->getId() << endl;
 }
 
 // Admin *Admin::operator=(Admin *admin)

@@ -141,14 +141,14 @@ void Term::setCourseNums(int courseNums)
 
 void Term::print()
 {
-    cout << "========== Term ===========" << endl;
-    cout << "Term Name: " << this->mTermName << endl;
-    cout << "Term Code: " << this->mTermCode << endl;
-    cout << "Term Start Date: " << *mPTermStartDate << endl;
-    cout << "Term End Date: " << *mPTermEndDate << endl;
-    cout << "Grades Deadline: " << *mPGradesDeadline << endl;
-    cout << "Course Numbers: " << this->mCourseNums << endl;
-    cout << "========== Course ===========" << endl;
+    cout << MAGENTA "========== Term ===========" RESET << endl;
+    cout << GREEN "Term Name: " RESET << this->mTermName << endl;
+    cout << BLUE "Term Code: " RESET << this->mTermCode << endl;
+    cout << YELLOW "Term Start Date: " RESET << *mPTermStartDate << endl;
+    cout << CYAN "Term End Date: " RESET << *mPTermEndDate << endl;
+    cout << WHITE "Grades Deadline: " RESET << *mPGradesDeadline << endl;
+    cout << GREEN "Course Numbers: " RESET << this->mCourseNums << endl;
+    cout << MAGENTA "========== Course ===========" RESET << endl;
     for (int i = 0; i < this->mCourseNums; i++)
     {
         this->mCourses.at(i).print();

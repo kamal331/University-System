@@ -198,12 +198,12 @@ void Course::setProfessor(Professor *professor)
 
 void Course::print()
 {
-    cout << "Course Name: " << this->mCourseName << endl;
-    cout << "Course Code: " << this->mCourseCode << endl;
+    cout << BLUE "Course Name: " RESET << this->mCourseName << endl;
+    cout << BLUE "Course Code: " RESET << this->mCourseCode << endl;
 
     /// @bug @ERROR: invalid use of incomplete type 'class Professor'
     // cout << "Course Proffesor: " << this->professor->getName() << endl;
-    cout << "Course Syllabus: ";
+    cout << BLUE "Course Syllabus: " RESET;
     for (int i = 0; mPCourseSyllabus[i] != '\0'; i++)
     {
         cout << mPCourseSyllabus[i];
@@ -211,16 +211,16 @@ void Course::print()
 
     cout << endl;
 
-    cout << "Course Start Date: " << *mPCourseStartDate << endl;
-    cout << "Course End Date: " << *mPCourseEndDate << endl;
-    cout << "Midterm Date: " << *mPMidTermDate << endl;
-    cout << "Final Exam Date: " << *mPFinalExamDate << endl;
-    cout << "Exams: " << endl;
+    cout << YELLOW "Course Start Date: " RESET << *mPCourseStartDate << endl;
+    cout << YELLOW "Course End Date: " RESET << *mPCourseEndDate << endl;
+    cout << YELLOW "Midterm Date: " RESET << *mPMidTermDate << endl;
+    cout << YELLOW "Final Exam Date: " RESET << *mPFinalExamDate << endl;
+    cout << YELLOW "Exams: " RESET << endl;
     for (int i = 0; i < this->mExamNums; i++)
     {
         if (i != 0)
             cout << "\n"
-                 << "========= Next Exam ========="
+                 << BLUE "========= Next Exam =========" RESET
                  << "\n"
                  << endl;
         this->mExams.at(i).printExam();

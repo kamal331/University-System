@@ -15,46 +15,53 @@ private:
     string mProblemType;
     string mProblemText;
     string mProblemAnswer;
-    string mProblemChoices[4]; // it is used for multiple choice
+    // string mProblemChoices[4]; // it is used for multiple choice
+    vector<string> mProblemChoices;
 
-    bool isMultipleChoice;
+    bool mIsMultipleChoice;
 
 public:
     Problem(string problemType, string problemText,
-            string problemAnswer, string *problemChoices, bool isMultipleChoice);
+            string problemAnswer, vector<string> &problemChoices,
+            bool isMultipleChoice);
     Problem(); // default constructor
     // string getSubject();
     string getProblemType();
     string getProblemText();
     string getProblemAnswer();
-    string *getProblemChoices();
+    vector<string> &getProblemChoices();
 
     // void setSubject(string subject);
     void setProblemType(string problemType);
     void setProblemText(string problemText);
     void setProblemAnswer(string problemAnswer);
-    void setProblemChoices(string *problemChoices);
+    void setProblemChoices(vector<string> &problemChoices);
 
     void printProblem();
     void printProblemChoices();
     void printProblemAnswer();
 
-    bool isTrueFalseCorrect(string answer);
-    bool isMultipleChoiceCorrect(string answer);
-    bool isFillInTheBlankCorrect(string answer); //==== professor need to check it
-    bool isShortAnswerCorrect(string answer);    //==== professor need to check it
+    bool getIsMultipleChoice();
+
+    // bool isTrueFalseCorrect(string answer);
+    // bool isMultipleChoiceCorrect(string answer);
+    // bool isFillInTheBlankCorrect(string answer); //==== professor need to check it
+    // bool isShortAnswerCorrect(string answer);    //==== professor need to check it
     // Problem *operator=(Problem *problem);
 
     // bool isCorrect(string answer);  //==== professor need to check it
 };
 
 Problem::Problem(string problemType, string problemText,
-                 string problemAnswer, string *problemChoices, bool isMultipleChoice)
+                 string problemAnswer, vector<string> &problemChoices,
+                 bool isMultipleChoice)
 {
     // this->mSubject = subject;
+    this->mProblemChoices = problemChoices;
     this->mProblemType = problemType;
     this->mProblemText = problemText;
     this->mProblemAnswer = problemAnswer;
+    this->mIsMultipleChoice = isMultipleChoice;
 }
 
 Problem::Problem()
@@ -80,7 +87,7 @@ string Problem::getProblemText()
     return this->mProblemText;
 }
 
-string *Problem::getProblemChoices()
+vector<string> &Problem::getProblemChoices()
 {
     return this->mProblemChoices;
 }
@@ -105,12 +112,9 @@ void Problem::setProblemText(string problemText)
     this->mProblemText = problemText;
 }
 
-void Problem::setProblemChoices(string *problemChoices)
+void Problem::setProblemChoices(vector<string> &problemChoices)
 {
-    for (int i = 0; i < 4; i++)
-    {
-        this->mProblemChoices[i] = problemChoices[i];
-    }
+    this->mProblemChoices = problemChoices;
 }
 
 void Problem::setProblemAnswer(string problemAnswer)
@@ -121,9 +125,15 @@ void Problem::setProblemAnswer(string problemAnswer)
 void Problem::printProblem()
 {
     // cout << "▶ Subject: " << this->mSubject << endl;
-    cout << "▶ Problem Type: " << this->mProblemType << endl;
-    cout << "▶ Problem Text:\n"
+
+    cout << GREEN "▶ Problem Type: " RESET << this->mProblemType << endl;
+    cout << BLUE "▶ Problem Text:\n" RESET
          << this->mProblemText << endl;
+    if (getIsMultipleChoice())
+    {
+        cout << MAGENTA "▶ Problem Choices:\n" RESET;
+        this->printProblemChoices();
+    }
 }
 
 void Problem::printProblemChoices()
@@ -134,44 +144,49 @@ void Problem::printProblemChoices()
 
 void Problem::printProblemAnswer()
 {
-    cout << "Problem Answer:\n"
+    cout << YELLOW "Problem Answer:\n" RESET
          << this->mProblemAnswer << endl;
 }
 
-bool Problem::isTrueFalseCorrect(string answer)
+bool Problem::getIsMultipleChoice()
 {
-    if (this->mProblemType == "True or False")
-    {
-        return this->mProblemAnswer == answer;
-    }
-    return false;
+    return this->mIsMultipleChoice;
 }
 
-bool Problem::isMultipleChoiceCorrect(string answer)
-{
-    if (this->mProblemType == "Multiple Choice")
-    {
-        return this->mProblemAnswer == answer;
-    }
-    return false;
-}
+// bool Problem::isTrueFalseCorrect(string answer)
+// {
+//     if (this->mProblemType == "True or False")
+//     {
+//         return this->mProblemAnswer == answer;
+//     }
+//     return false;
+// }
 
-bool Problem::isFillInTheBlankCorrect(string answer)
-{
-    if (this->mProblemType == "Fill in the Blank")
-    {
-        return this->mProblemAnswer == answer;
-    }
-    return false;
-}
+// bool Problem::isMultipleChoiceCorrect(string answer)
+// {
+//     if (this->mProblemType == "Multiple Choice")
+//     {
+//         return this->mProblemAnswer == answer;
+//     }
+//     return false;
+// }
 
-bool Problem::isShortAnswerCorrect(string answer)
-{
-    if (this->mProblemType == "Short Answer")
-    {
-        return this->mProblemAnswer == answer;
-    }
-    return false;
-}
+// bool Problem::isFillInTheBlankCorrect(string answer)
+// {
+//     if (this->mProblemType == "Fill in the Blank")
+//     {
+//         return this->mProblemAnswer == answer;
+//     }
+//     return false;
+// }
+
+// bool Problem::isShortAnswerCorrect(string answer)
+// {
+//     if (this->mProblemType == "Short Answer")
+//     {
+//         return this->mProblemAnswer == answer;
+//     }
+//     return false;
+// }
 
 #endif

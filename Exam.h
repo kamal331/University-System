@@ -15,6 +15,7 @@ private:
     // Problem *mPProblems;
     vector<Problem> mProblems;
     int mProblemNums;
+    double mScore;
 
 public:
     Exam(string subject, vector<Problem> &problems, int problemNums);
@@ -24,10 +25,13 @@ public:
     // Problem *getProblems();
     vector<Problem> &getProblems();
     int getProblemNums();
+    double getScore();
 
     void setSubject(string subject);
     void setProblems(Problem &problem);
     void setproblemNums(int problemNums);
+    void setScore(double score);
+
     void printExam();
 
     // Exam operator=(Exam *exam);
@@ -67,6 +71,11 @@ int Exam::getProblemNums()
     return this->mProblemNums;
 }
 
+double Exam::getScore()
+{
+    return this->mScore;
+}
+
 void Exam::setSubject(string subject)
 {
     this->mSubject = subject;
@@ -82,11 +91,16 @@ void Exam::setproblemNums(int problemNums)
     this->mProblemNums = problemNums;
 }
 
+void Exam::setScore(double score)
+{
+    this->mScore = score;
+}
+
 void Exam::printExam()
 {
-    cout << "Subject: " << this->mSubject << endl;
-    cout << "Problem Numbers: " << this->mProblemNums << endl;
-    cout << "Problems: " << endl;
+    cout << GREEN "Subject: " RESET << this->mSubject << endl;
+    cout << BLUE "Problem Numbers: " RESET << this->mProblemNums << endl;
+    cout << MAGENTA "Problems: " RESET << endl;
     for (int i = 0; i < this->mProblemNums; i++)
     {
         cout << "===== ✳  Problem " << i + 1 << "✳  =====" << endl;

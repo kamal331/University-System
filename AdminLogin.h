@@ -13,26 +13,26 @@ void adminMenu()
 {
     while (!adminLogin())
     {
-        cout << "Try again? (y/n)" << endl;
+        cout << RED "Try again? (y/n)" RESET << endl;
         string choice;
         cin >> choice;
         if (choice == "n")
             return;
     }
-    cout << "=========== 🧑‍💻  Welcome to the Admin Menu 🧑‍💻  ===========" << endl;
-    string choices[7] = {"1. Add a student 🧑‍🎓",
-                         "2. Add a professor 🧑‍🏫",
-                         "3. Add a course 📚",
-                         "4. Add a term 📅",
-                         "5. Set a course to a professor 📝",
-                         "6. Back to Last Page 🔙",
-                         "7. Exit 🚪"};
+    cout << MAGENTA "===========" RESET "🧑‍💻" MAGENTA "  Welcome to the Admin Menu" RESET " 🧑‍💻" MAGENTA "===========" RESET << endl;
+    string choices[7] = {GREEN "1. Add a student 🧑‍🎓" RESET,
+                         YELLOW "2. Add a professor 🧑‍🏫" RESET,
+                         BLUE "3. Add a course 📚" RESET,
+                         WHITE "4. Add a term 📅" RESET,
+                         CYAN "5. Set a course to a professor 📝" RESET,
+                         GREEN "6. Back to Last Page 🔙" RESET,
+                         RED "7. Exit 🚪" RESET};
     string choice;
 
     while (true)
     {
         CLEAR_SCREEN();
-        cout << "What would you like to do?" << endl;
+        cout << MAGENTA "What would you like to do?" RESET << endl;
         for (string choice : choices) // Print Menu
             cout << choice << endl;
         cin >> choice;
@@ -89,9 +89,11 @@ bool adminLogin()
     int id;
     string password;
 
-    cout << "Enter your ID: ";
+    cout << GREEN "Enter your ID: " RESET;
     cin >> id;
+    cout << BLUE;
     password = getpass("Enter your password: ");
+    cout << RESET;
 
     for (int i = 0; i < gAdminId; i++)
     {
@@ -99,14 +101,14 @@ bool adminLogin()
         {
             if (verifyArgon2Hash(password, gAdmins.at(i).getPassword(), gAdmins.at(i).getSalt()))
             {
-                cout << "Login successful ✅" << endl;
+                cout << GREEN "Login successful ✅" RESET << endl;
                 return true;
             }
             else
-                cout << "Wrong password ❌" << endl;
+                cout << RED "Wrong password ❌" RESET << endl;
         }
     }
-    cout << "Login Failed!" << endl;
+    cout << RED "Login Failed!" RESET << endl;
     return false;
 }
 
@@ -122,15 +124,14 @@ void addStudent()
 
     EMPTY_BUFFER();
 
-    cout << "Enter student's name: ";
+    cout << BLUE "Enter student's name: " RESET;
     cin >> name;
 
     password = _getPaasword();
 
     Student s(name, getArgon2Hash(password, salt), salt, id, 0);
     gStudents.push_back(s);
-    gStudentId++;
-    cout << "Student added successfully ✅" << endl;
+    cout << GREEN "Student added successfully ✅" RESET << endl;
 }
 
 void addProfessor()
@@ -143,7 +144,7 @@ void addProfessor()
     salt = randomString(32);
     int id = _getNewProfessorId();
 
-    cout << "Enter professor's name: ";
+    cout << BLUE "Enter professor's name: " RESET;
     EMPTY_BUFFER();
 
     getline(cin, name);
@@ -152,11 +153,9 @@ void addProfessor()
 
     Professor prof(name, getArgon2Hash(password, salt), salt, id, 0);
 
-    gProfessorId++;
-
     gProfessors.push_back(prof);
 
-    cout << "Professor added successfully ✅" << endl;
+    cout << GREEN "Professor added successfully ✅" RESET << endl;
 }
 
 void addCourse()
@@ -164,14 +163,14 @@ void addCourse()
     CLEAR_SCREEN();
     string name;
 
-    cout << "Enter course's name: ";
+    cout << BLUE "Enter course's name: " RESET;
     cin >> name;
 
     int code = _getNewCourseCode();
 
     char *pSyllabus = new char[MAX_SYLLABUS_SIZE];
 
-    cout << "Enter course's syllabus: ";
+    cout << GREEN "Enter course's syllabus: " RESET;
     char c = '=';
     int i = 0;
     EMPTY_BUFFER();
@@ -190,27 +189,27 @@ void addCourse()
     Date *pMidTermDate = new Date();
     Date *pFinalExamDate = new Date();
 
-    cout << "Enter course's start date: ";
+    cout << YELLOW "Enter course's start date: " RESET;
     cin >> *pStartDate;
 
-    cout << "Enter course's end date: ";
+    cout << YELLOW "Enter course's end date: " RESET;
     cin >> *pEndDate;
 
-    cout << "Enter course's mid term date: ";
+    cout << YELLOW "Enter course's mid term date: " RESET;
     cin >> *pMidTermDate;
 
-    cout << "Enter course's final exam date: ";
+    cout << YELLOW "Enter course's final exam date: " RESET;
     cin >> *pFinalExamDate;
 
     vector<Exam> exams;
     int examNum = 0;
 
     // Professor *pProfessor = new Professor();
-    cout << "This course is for which professor? (Enter professor's ID):" << endl;
+    cout << BLUE "This course is for which professor? (Enter professor's ID):" RESET << endl;
     int id;
     cin >> id;
 
-    cout << "This course is avaliable for which term? " << endl;
+    cout << BLUE "This course is avaliable for which term? " RESET << endl;
     int termCode;
     cin >> termCode;
 
@@ -220,36 +219,35 @@ void addCourse()
 
     gProfessors.at(id).setCourse(course);
     gProfessors.at(id).setCourseNums(gProfessors.at(id).getCourseNums() + 1);
-    gCourseCode++;
 }
 
 void setCourseToProfessor()
 {
     CLEAR_SCREEN();
     printAllCourses();
-    cout << "Which professor do you want to set course for? (Enter professor's ID):" << endl;
+    cout << BLUE "Which professor do you want to set course for? (Enter professor's ID):" RESET << endl;
     int id;
     cin >> id;
 
-    cout << "Which course do you want to set for this professor? (Enter course's code):" << endl;
+    cout << BLUE "Which course do you want to set for this professor? (Enter course's code):" RESET << endl;
     int code;
     cin >> code;
 
     gProfessors.at(id).setCourse(gCourses.at(code));
-    cout << "Course set successfully ✅" << endl;
+    cout << GREEN "Course set successfully ✅" RESET << endl;
 }
 
 void printAllCourses()
 {
     CLEAR_SCREEN();
-    cout << "All courses: " << endl;
+    cout << MAGENTA "All courses: " RESET << endl;
     for (int i = 0; i < gCourses.size(); i++)
     {
         cout << i << ". " << gCourses.at(i).getCourseName() << endl;
-        cout << "Course Code: " << gCourses.at(i).getCourseCode() << endl;
-        cout << "Course Name: " << gCourses.at(i).getCourseName() << endl;
-        cout << "Course Professor: " << gCourses.at(i).getProfessor()->getName() << endl;
-        cout << "Exam numbers: " << gCourses.at(i).getExamNums() << endl;
+        cout << BLUE "Course Code: " RESET << gCourses.at(i).getCourseCode() << endl;
+        cout << BLUE "Course Name: " RESET << gCourses.at(i).getCourseName() << endl;
+        cout << BLUE "Course Professor: " RESET << gCourses.at(i).getProfessor()->getName() << endl;
+        cout << BLUE "Exam numbers: " RESET << gCourses.at(i).getExamNums() << endl;
         for (int j = 0; j < gCourses.at(i).getExamNums(); j++)
         {
             cout << "Exam Name: " << gCourses.at(i).getExams().at(j).getExamName() << endl;
@@ -265,20 +263,20 @@ Term addTerm()
     int code = _getNewTermCode();
 
     EMPTY_BUFFER();
-    cout << "Enter term's name: ";
+    cout << BLUE "Enter term's name: " RESET;
     getline(cin, name);
 
     Date *pStartDate = new Date();
     Date *pEndDate = new Date();
     Date *pGradesDeadLine = new Date();
 
-    cout << "Enter term's start date: ";
+    cout << BLUE "Enter term's start date: " RESET;
     cin >> *pStartDate;
 
-    cout << "Enter term's end date: ";
+    cout << BLUE "Enter term's end date: " RESET;
     cin >> *pEndDate;
 
-    cout << "Enter term's grades deadline: ";
+    cout << BLUE "Enter term's grades deadline: " RESET;
     cin >> *pGradesDeadLine;
 
     // cout << "How many courses do you want to add? ";
@@ -296,8 +294,7 @@ Term addTerm()
 
     gTerms.push_back(term);
 
-    gTermCode++;
-    cout << "Term added successfully ✅" << endl;
+    cout << GREEN "Term added successfully ✅" RESET << endl;
 
     return term;
 }

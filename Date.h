@@ -81,7 +81,9 @@ void Date::setDay(int day)
 
 void Date::printDate()
 {
+    cout << GREEN;
     cout << this->year << "/" << this->month << "/" << this->day << endl;
+    cout << RESET;
 }
 
 Date *Date::operator=(Date *date)
@@ -94,7 +96,9 @@ Date *Date::operator=(Date *date)
 
 ostream &operator<<(ostream &output, const Date &date)
 {
+    cout << GREEN;
     output << date.year << "/" << date.month << "/" << date.day;
+    cout << RESET;
     return output;
 }
 
